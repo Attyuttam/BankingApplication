@@ -1,0 +1,3 @@
+2019-08-25 13:09:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ACCOUNT" not found; SQL statement:
+INSERT INTO Account (account_id, account_balance, account_type_id_fk,interest_rate,last_access_time_stamp) VALUES ('12341', '1000', 'Savings','12.5',CURRENT_DATE), ('12342', '2000', 'Savings','13.5',CURRENT_DATE), ('12343', '3000', 'Current','14.5',CURRENT_DATE), ('12344', '4000', 'Current','7.5',CURRENT_DATE) [42102-199]
