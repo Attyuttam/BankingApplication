@@ -1,5 +1,7 @@
 package com.BankingApplication.BankingApplication.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -17,13 +19,14 @@ public class AccountTransaction {
     @Column(name = "transaction_amount")
     private Double transactionAmount;
 
+    @JsonBackReference
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id_fk", referencedColumnName = "account_id")
-    private String accountID;
+    private Account accountID;
 
 
-    public AccountTransaction(String transactionID, Date transactionTimeStamp, Double transactionAmount, String accountID) {
-        this.transactionID = transactionID;
+    public AccountTransaction(){}
+    public AccountTransaction(Date transactionTimeStamp, Double transactionAmount, Account accountID) {
         this.transactionTimeStamp = transactionTimeStamp;
         this.transactionAmount = transactionAmount;
         this.accountID = accountID;
@@ -52,11 +55,11 @@ public class AccountTransaction {
         this.transactionAmount = transactionAmount;
     }
 
-    public String getAccountID() {
+    public Account getAccountID() {
         return accountID;
     }
 
-    public void setAccountID(String accountID) {
+    public void setAccountID(Account accountID) {
         this.accountID = accountID;
     }
 }

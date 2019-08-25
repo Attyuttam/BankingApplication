@@ -50,7 +50,7 @@ public class BankingApplicationController {
         accountTransactionService.deleteById(accountTransactionId);
     }
     //AccountTypeController
-    @GetMapping("/accounts")
+    @GetMapping("/accountTypes")
     public List<AccountType> allAccountTypes() {
         return accountTypeService.findAll();
     }

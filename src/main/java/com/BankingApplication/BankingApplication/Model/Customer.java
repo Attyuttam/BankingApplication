@@ -20,9 +20,10 @@ public class Customer {
     @Column(name = "mother_name")
     private String motherName;
 
+    public Customer(){}
 
-    public Customer(String customerID, String customerName, String emailId, String guardianName, String fatherName, String motherName) {
-        this.customerID = customerID;
+    public Customer( String customerName, String emailId, String guardianName, String fatherName, String motherName) {
+
         this.customerName = customerName;
         this.emailId = emailId;
         this.guardianName = guardianName;

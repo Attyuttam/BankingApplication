@@ -21,34 +21,60 @@ public class BankingApplicationRunner implements CommandLineRunner {
     private CustomerAccountRepository customerAccountRepository;
     @Autowired
     private CustomerRepository customerRepository;
+
     @Override
     public void run(String... args) throws Exception {
         Logger.getAnonymousLogger().info("initializing all tables");
-        accountRepository.save(new Account("A-12341", (double) 1000, "Savings",12.5,new Date()));
-        accountRepository.save(new Account("A-12342", (double) 2000, "Current",13.5,new Date()));
-        accountRepository.save(new Account("A-12343", (double) 3000, "Current",7.5,new Date()));
-        accountRepository.save(new Account("A-12344", (double) 4000, "Savings",10.5,new Date()));
+        AccountType Savings = new AccountType("Savings");
+        AccountType Deposit = new AccountType("Deposit");
+        AccountType Current = new AccountType("Current");
 
-        accountTypeRepository.save(new AccountType("AT-11111", "Savings"));
-        accountTypeRepository.save(new AccountType("AT-11112", "Current"));
-        accountTypeRepository.save(new AccountType("AT-11113", "Deposit"));
 
-        customerRepository.save(new Customer("C-12111", "Attyuttam Saha", "attyuttam@gmail.com", "Achintya Kumar Saha", "Achintya Kumar Saha", "Anita Saha"));
-        customerRepository.save(new Customer("C-12112", "Anupam Saha", "anup89@gmail.com", "Achintya Kumar Saha", "Achintya Kumar Saha", "Anita Saha"));
-        customerRepository.save(new Customer("C-12113", "Sraddha Chakraborty", "sraddha@gmail.com", "Subir Chakraborty", "Subir Chakraborty", "Jaba Chakraborty"));
-        customerRepository.save(new Customer("C-12114", "Puskar Karmakar", "puskarisgod@gmail.com", "Tapas Karmakar", "Tapas Karmakar", "Tulika Karmakar"));
+        accountTypeRepository.save(Savings);
+        accountTypeRepository.save(Current);
+        accountTypeRepository.save(Deposit);
 
-        customerAccountRepository.save(new CustomerAccount(new CustomerAccountID("C-12111", "A-12341"),new Date()));
-        customerAccountRepository.save(new CustomerAccount(new CustomerAccountID("C-12112", "A-12342"),new Date()));
-        customerAccountRepository.save(new CustomerAccount(new CustomerAccountID("C-12113", "A-12343"),new Date()));
-        customerAccountRepository.save(new CustomerAccount(new CustomerAccountID("C-12114", "A-12344"),new Date()));
+        Account A12341 = new Account( (double) 1000, Savings,12.5,new Date());
+        Account A12342 = new Account( (double) 2000, Savings,12.5,new Date());
+        Account A12343 = new Account( (double) 3000, Current,7.5,new Date());
+        Account A12344 = new Account( (double) 4000, Deposit,2.5,new Date());
+        Account A12345 = new Account( (double) 5000, Savings,12.5,new Date());
 
-        accountTransactionRepository.save(new AccountTransaction("T-13111",new Date(),(double) 1000,"A-12341"));
-        accountTransactionRepository.save(new AccountTransaction("T-13112",new Date(),(double) 1000,"A-12342"));
-        accountTransactionRepository.save(new AccountTransaction("T-13113",new Date(),(double) 1000,"A-12343"));
-        accountTransactionRepository.save(new AccountTransaction("T-13114",new Date(),(double) 1000,"A-12344"));
-        accountTransactionRepository.save(new AccountTransaction("T-13115",new Date(),(double) 1000,"A-12341"));
-        accountTransactionRepository.save(new AccountTransaction("T-13116",new Date(),(double) 1000,"A-12342"));
-        accountTransactionRepository.save(new AccountTransaction("T-13117",new Date(),(double) 1000,"A-12343"));
+        accountRepository.save(A12341);
+        accountRepository.save(A12342);
+        accountRepository.save(A12343);
+        accountRepository.save(A12344);
+        accountRepository.save(A12345);
+
+        Customer C1 = new Customer("Attyuttam Saha", "attyuttam@gmail.com", "Achintya Kumar Saha", "Achintya Kumar Saha", "Anita Saha");
+        Customer C2 = new Customer("Anupam Saha", "anup89@gmail.com", "Achintya Kumar Saha", "Achintya Kumar Saha", "Anita Saha");
+        Customer C3 = new Customer("Sraddha Chakraborty", "sraddha@gmail.com", "Subir Chakraborty", "Subir Chakraborty", "Jaba Chakraborty");
+        Customer C4 = new Customer("Puskar Karmakar", "puskarisgod@gmail.com", "Tapas Karmakar", "Tapas Karmakar", "Tulika Karmakar");
+
+        customerRepository.save(C1);
+        customerRepository.save(C2);
+        customerRepository.save(C3);
+        customerRepository.save(C4);
+
+        CustomerAccount CA1 = new CustomerAccount(new CustomerAccountID(C1,A12341), new Date());
+        CustomerAccount CA2 = new CustomerAccount(new CustomerAccountID(C2,A12342),new Date());
+        CustomerAccount CA3 = new CustomerAccount(new CustomerAccountID(C3,A12343),new Date());
+        CustomerAccount CA4 = new CustomerAccount(new CustomerAccountID(C4,A12344),new Date());
+        CustomerAccount CA5 = new CustomerAccount(new CustomerAccountID(C4,A12345),new Date());
+
+        customerAccountRepository.save(CA1);
+        customerAccountRepository.save(CA2);
+        customerAccountRepository.save(CA3);
+        customerAccountRepository.save(CA4);
+        customerAccountRepository.save(CA5);
+
+        accountTransactionRepository.save(new AccountTransaction(new Date(),(double) 1000,A12341));
+        accountTransactionRepository.save(new AccountTransaction(new Date(),(double) 1000,A12342));
+        accountTransactionRepository.save(new AccountTransaction(new Date(),(double) 1000,A12343));
+        accountTransactionRepository.save(new AccountTransaction(new Date(),(double) 1000,A12344));
+        accountTransactionRepository.save(new AccountTransaction(new Date(),(double) 1000,A12341));
+        accountTransactionRepository.save(new AccountTransaction(new Date(),(double) 1000,A12342));
+        accountTransactionRepository.save(new AccountTransaction(new Date(),(double) 1000,A12343));
+
     }
 }

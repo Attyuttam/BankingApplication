@@ -13,9 +13,8 @@ public class AccountType {
     @Column(name = "account_type")
     private String accountType;
 
-
-    public AccountType(String accountTypeID, String accountType) {
-        this.accountTypeID = accountTypeID;
+    public AccountType(){}
+    public AccountType(String accountType) {
         this.accountType = accountType;
     }
     public String getAccountTypeID() {

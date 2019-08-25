@@ -1,5 +1,8 @@
 package com.BankingApplication.BankingApplication.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -14,9 +17,10 @@ public class Account {
     @Column(name = "account_balance")
     private Double accountBalance;
 
+    @JsonBackReference
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_type_id_fk", referencedColumnName ="account_type_id")
-    private String accountTypeID;
+    private AccountType accountTypeID;
 
     @Column(name = "interest_rate")
     private Double interestRate;
@@ -24,9 +28,10 @@ public class Account {
     @Column(name = "last_access_time_stamp")
     private Date lastAccessTimeStamp;
 
+    public Account(){}
 
-    public Account(String accountID, Double accountBalance, String accountTypeID, Double interestRate, Date lastAccessTimeStamp) {
-        this.accountID = accountID;
+    public Account(Double accountBalance, AccountType accountTypeID, Double interestRate, Date lastAccessTimeStamp) {
+
         this.accountBalance = accountBalance;
         this.accountTypeID = accountTypeID;
         this.interestRate = interestRate;
@@ -49,11 +54,11 @@ public class Account {
         this.accountBalance = accountBalance;
     }
 
-    public String getAccountTypeID() {
+    public AccountType getAccountTypeID() {
         return accountTypeID;
     }
 
-    public void setAccountTypeID(String accountTypeID) {
+    public void setAccountTypeID(AccountType accountTypeID) {
         this.accountTypeID = accountTypeID;
     }
 

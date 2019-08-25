@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Service
 public class AccountService {
@@ -14,6 +15,7 @@ public class AccountService {
     private AccountRepository accountRepository;
     public List<Account> findAll() {
         List<Account> accounts = new ArrayList<>();
+        // accountRepository.findAll().forEach(e -> Logger.getAnonymousLogger().info(e.getAccountID()));
         accountRepository.findAll().forEach(e -> accounts.add(e));
         return accounts;
     }
