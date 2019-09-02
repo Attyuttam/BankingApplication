@@ -13,6 +13,7 @@ const SideDrawer = props => {
                     <li><NavLink onClick = {props.click} className={'link'} to={'enterACADetails'}>Enter ACA details</NavLink></li>
                     <li><NavLink onClick = {props.click} className={'link'} to={'viewACADetails'}>View ACA details</NavLink></li>
                     <li><NavLink onClick = {props.click} className={'link'} to={'enterNewAccountHolder'}>Enter new Account Holder</NavLink></li>
+                    <li><NavLink onClick = {props.click} className={'link'} to={'viewAccountHolder'}>View Account Holder</NavLink></li>
                     <li><NavLink onClick = {props.click} className={'link'} to={'editAccountHolder'}>Edit Account Holder</NavLink></li>
                     <li><NavLink onClick = {props.click} className={'link'} to={'createAccountEntry'}>Create Account Entry</NavLink></li>
                     <li><NavLink onClick = {props.click} className={'link'} to={'viewWeeklyChart'}>View Weekly Chart</NavLink></li>

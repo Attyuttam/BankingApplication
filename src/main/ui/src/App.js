@@ -12,6 +12,7 @@ import EnterNewAccountHolder from "./components/ViewComponents/EnterNewAccountHo
 import ViewWeeklyChart from "./components/ViewComponents/ViewWeeklyChart/ViewWeeklyChart";
 import ViewMonthlyChart from "./components/ViewComponents/ViewMonthlyChart/ViewMonthlyChart";
 import ViewYearlyChart from "./components/ViewComponents/ViewYearlyChart/ViewYearlyChart";
+import ViewAccountHolder from "./components/ViewComponents/ViewAccountHolder/ViewAccountHolder";
 class App extends  React.Component{
     state = {
         sideDrawerOpen: false,
@@ -44,6 +45,7 @@ class App extends  React.Component{
                             <Route path='/viewACADetails' component={ViewACADetails}/>
                             <Route path='/createAccountEntry' component={CreateAccountEntry}/>
                             <Route path='/editAccountHolder' component={EditAccountHolder}/>
+                            <Route path='/viewAccountHolder' component={ViewAccountHolder}/>
                             <Route path='/enterNewAccountHolder' component={EnterNewAccountHolder}/>
                             <Route path='/viewWeeklyChart' component={ViewWeeklyChart}/>
                             <Route path='/viewMonthlyChart' component={ViewMonthlyChart}/>
