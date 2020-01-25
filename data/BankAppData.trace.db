@@ -483,3 +483,18 @@ Caused by: java.nio.channels.OverlappingFileLockException
 	at java.base/java.nio.channels.FileChannel.tryLock(FileChannel.java:1165)
 	at org.h2.mvstore.FileStore.open(FileStore.java:163)
 	... 29 more
+2019-09-15 12:32:20 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT C.CUSTOMER_ID AS CUSTOMERID,"" +
+            ""C.[*]CUSTOMER_NAME AS CUSTOMERNAME,C.EMAIL_ID AS CUSTOMEREMAILID,C.GUARDIAN_NAME AS CUSTOMERGUARDIANNAME,"" +
+            ""A.ACCOUNT_ID AS CUSTOMERACCOUNTID,A.ACCOUNT_BALANCE AS CUSTOMERACCOUNTBALANCE,"" +
+            ""A.LAST_ACCESS_TIME_STAMP AS CUSTOMERACCOUNTLASTACCESSTIMESTAMP,AT.ACCOUNT_TYPE AS CUSTOMERACCOUNTTYPE,"" +
+            ""CA.CUSTOMER_ACCOUNT_CREATION_TIME_STAMP AS CUSTOMERACCOUNTCREATIONTIMESTAMP"" +
+            "" FROM CUSTOMER C,ACCOUNT A,ACCOUNT_TYPE AT,CUSTOMER_ACCOUNT CA WHERE C.CUSTOMER_ID = CA.CUSTOMER_ID_FK"" +
+            "" AND CA.ACCOUNT_ID_FK = A.ACCOUNT_ID AND A.ACCOUNT_TYPE_ID_FK = AT.ACCOUNT_TYPE_ID "; SQL statement:
+SELECT c.customer_id AS customerID," +
+            "c.customer_name AS customerName,c.email_id AS customerEmailID,c.guardian_name AS customerGuardianName," +
+            "a.account_id AS customerAccountID,a.account_balance AS customerAccountBalance," +
+            "a.last_access_time_stamp AS customerAccountLastAccessTimeStamp,at.account_type AS customerAccountType," +
+            "ca.customer_account_creation_time_stamp AS customerAccountCreationTimeStamp" +
+            " FROM customer c,account a,account_type at,customer_account ca WHERE c.customer_id = ca.customer_id_fk" +
+            " AND ca.account_id_fk = a.account_id AND a.account_type_id_fk = at.account_type_id [42000-199]

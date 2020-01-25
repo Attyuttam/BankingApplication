@@ -21,10 +21,12 @@ public class BankingApplicationRunner implements CommandLineRunner {
     private CustomerAccountRepository customerAccountRepository;
     @Autowired
     private CustomerRepository customerRepository;
-
+    @Autowired
+    private ACARepository acaRepository;
     @Override
     public void run(String... args) throws Exception {
         Logger.getAnonymousLogger().info("initializing all tables");
+
         AccountType Savings = new AccountType("Savings");
         AccountType Deposit = new AccountType("Deposit");
         AccountType Current = new AccountType("Current");
@@ -76,5 +78,9 @@ public class BankingApplicationRunner implements CommandLineRunner {
         accountTransactionRepository.save(new AccountTransaction(new Date(),(double) 1000,A12342));
         accountTransactionRepository.save(new AccountTransaction(new Date(),(double) 1000,A12343));
 
+        ACA aca1 = new ACA("101","Achintya Kumar Saha",new Date(),"Siliguri");
+        ACA aca2 = new ACA("102","Anupam Saha",new Date(),"Siliguri");
+        acaRepository.save(aca1);
+        acaRepository.save(aca2);
     }
 }

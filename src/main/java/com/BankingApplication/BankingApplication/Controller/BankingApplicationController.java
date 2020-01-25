@@ -5,6 +5,10 @@ import com.BankingApplication.BankingApplication.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,10 +24,35 @@ public class BankingApplicationController {
     @Autowired
     private CustomerService customerService;
 
+    @Autowired
+    private ACAService acaService;
+    @Autowired
+    private CustomerDetailsService customerDetailsService;
+    //CustomerDetails Controller
+    @CrossOrigin("http://localhost:3000")
+    @GetMapping("/customerDetails")
+    public ArrayList<CustomerDetails> getCustomerDetails() throws IOException {
+       return customerDetailsService.findCustomerDetails();
+    }
+    //ACA Controller
+    @CrossOrigin("http://localhost:3000")
+    @GetMapping("/aca")
+    public List<ACA> getAllACA() {
+        return acaService.findAll();
+    }
+    @GetMapping("/aca/count")
+    public Long countNumberOfACA() {
+        return acaService.count();
+    }
+    @DeleteMapping("/aca/{acaId}")
+    public void deleteACA(@PathVariable String acaId) {
+        acaService.deleteById(acaId);
+    }
+
     //Account Controller
     @CrossOrigin("http://localhost:3000")
     @GetMapping("/accounts")
-    public List<Account> allAccounts() {
+    public List<Account> getAllAccounts() {
         return accountService.findAll();
     }
     @GetMapping("/accounts/count")
@@ -36,7 +65,7 @@ public class BankingApplicationController {
     }
     //AccountTransaction Controller
     @GetMapping("/accountTransactions")
-    public List<AccountTransaction> allAccountTransactions() {
+    public List<AccountTransaction> getAllAccountTransactions() {
         return accountTransactionService.findAll();
     }
     @GetMapping("/accountTransactions/count")
@@ -49,7 +78,7 @@ public class BankingApplicationController {
     }
     //AccountTypeController
     @GetMapping("/accountTypes")
-    public List<AccountType> allAccountTypes() {
+    public List<AccountType> getAllAccountTypes() {
         return accountTypeService.findAll();
     }
     @GetMapping("/accountTypes/count")
@@ -62,7 +91,7 @@ public class BankingApplicationController {
     }
     //Customer Controller
     @GetMapping("/customers")
-    public List<Customer> allCustomers() {
+    public List<Customer> getAllCustomers() {
         return customerService.findAll();
     }
     @GetMapping("/customers/count")
@@ -75,7 +104,7 @@ public class BankingApplicationController {
     }
     //CustomerAccount Controller
     @GetMapping("/customerAccounts")
-    public List<CustomerAccount> allCustomerAccounts() {
+    public List<CustomerAccount> getAllCustomerAccounts() {
         return customerAccountService.findAll();
     }
     @GetMapping("/customerAccounts/count")
