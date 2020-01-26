@@ -15,7 +15,7 @@ public class CustomerService {
     private CustomerRepository customerRepository;
     public List<Customer> findAll() {
         List<Customer> customers = new ArrayList<>();
-        customerRepository.findAll().forEach(e -> customers.add(e));
+        customerRepository.findAll().forEach(customers::add);
         return customers;
     }
     public Long count() {
@@ -24,5 +24,21 @@ public class CustomerService {
 
     public void deleteById(String customerId) {
         customerRepository.deleteById(customerId);
+    }
+
+    public String save(Customer customer) {
+        List<Customer> customerList = new ArrayList<>();
+        customerRepository.findAll().forEach(customerList::add);
+        for (Customer value : customerList) {
+            if (value.getCustomerName().equals(customer.getCustomerName()) &&
+                    value.getDob().compareTo(customer.getDob()) == 0 &&
+                    value.getEmailId().equals(customer.getEmailId()) &&
+                    value.getFatherName().equals(customer.getFatherName()) &&
+                    value.getGuardianName().equals(customer.getGuardianName()) &&
+                    value.getMotherName().equals(customer.getMotherName())) {
+                return "Customer already exists with Id: " + value.getCustomerID();
+            }
+        }
+        return customerRepository.save(customer).getCustomerID();
     }
 }

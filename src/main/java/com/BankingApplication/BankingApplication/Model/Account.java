@@ -1,13 +1,24 @@
 package com.BankingApplication.BankingApplication.Model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "Account")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Account {
     @Id
     @Column(name = "account_id")
@@ -17,7 +28,7 @@ public class Account {
     @Column(name = "account_balance")
     private Double accountBalance;
 
-    @JsonBackReference
+    @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_type_id_fk", referencedColumnName ="account_type_id")
     private AccountType accountTypeID;
@@ -26,55 +37,20 @@ public class Account {
     private Double interestRate;
 
     @Column(name = "last_access_time_stamp")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private Date lastAccessTimeStamp;
 
-    public Account(){}
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "customer_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Customer customer;
 
-    public Account(Double accountBalance, AccountType accountTypeID, Double interestRate, Date lastAccessTimeStamp) {
-
-        this.accountBalance = accountBalance;
+    public Account(Double accountBalance,AccountType accountTypeID,Double interestRate, Date lastAccessTimeStamp,Customer customer){
+        this.accountBalance =accountBalance;
         this.accountTypeID = accountTypeID;
         this.interestRate = interestRate;
         this.lastAccessTimeStamp = lastAccessTimeStamp;
-    }
-
-    public String getAccountID() {
-        return accountID;
-    }
-
-    public void setAccountID(String accountID) {
-        this.accountID = accountID;
-    }
-
-    public Double getAccountBalance() {
-        return accountBalance;
-    }
-
-    public void setAccountBalance(Double accountBalance) {
-        this.accountBalance = accountBalance;
-    }
-
-    public AccountType getAccountTypeID() {
-        return accountTypeID;
-    }
-
-    public void setAccountTypeID(AccountType accountTypeID) {
-        this.accountTypeID = accountTypeID;
-    }
-
-    public Double getInterestRate() {
-        return interestRate;
-    }
-
-    public void setInterestRate(Double interestRate) {
-        this.interestRate = interestRate;
-    }
-
-    public Date getLastAccessTimeStamp() {
-        return lastAccessTimeStamp;
-    }
-
-    public void setLastAccessTimeStamp(Date lastAccessTimeStamp) {
-        this.lastAccessTimeStamp = lastAccessTimeStamp;
+        this.customer = customer;
     }
 }

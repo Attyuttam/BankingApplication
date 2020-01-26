@@ -17,8 +17,7 @@ public class BankingApplicationRunner implements CommandLineRunner {
     private AccountTransactionRepository accountTransactionRepository;
     @Autowired
     private AccountTypeRepository accountTypeRepository;
-    @Autowired
-    private CustomerAccountRepository customerAccountRepository;
+
     @Autowired
     private CustomerRepository customerRepository;
     @Autowired
@@ -36,11 +35,23 @@ public class BankingApplicationRunner implements CommandLineRunner {
         accountTypeRepository.save(Current);
         accountTypeRepository.save(Deposit);
 
-        Account A12341 = new Account( (double) 1000, Savings,12.5,new Date());
-        Account A12342 = new Account( (double) 2000, Savings,12.5,new Date());
-        Account A12343 = new Account( (double) 3000, Current,7.5,new Date());
-        Account A12344 = new Account( (double) 4000, Deposit,2.5,new Date());
-        Account A12345 = new Account( (double) 5000, Savings,12.5,new Date());
+
+        Customer C1 = new Customer("Attyuttam Saha", new Date(),"attyuttam@gmail.com", "Achintya Kumar Saha", "Achintya Kumar Saha", "Anita Saha");
+        Customer C2 = new Customer("Anupam Saha", new Date(),"anup89@gmail.com", "Achintya Kumar Saha", "Achintya Kumar Saha", "Anita Saha");
+        Customer C3 = new Customer("Sraddha Chakraborty",new Date(), "sraddha@gmail.com", "Subir Chakraborty", "Subir Chakraborty", "Jaba Chakraborty");
+        Customer C4 = new Customer("Puskar Karmakar", new Date(),"puskarisgod@gmail.com", "Tapas Karmakar", "Tapas Karmakar", "Tulika Karmakar");
+
+        customerRepository.save(C1);
+        customerRepository.save(C2);
+        customerRepository.save(C3);
+        customerRepository.save(C4);
+
+        Account A12341 = new Account( (double) 1000, Savings,12.5,new Date(),C1);
+        Account A12342 = new Account( (double) 2000, Savings,12.5,new Date(),C1);
+        Account A12343 = new Account( (double) 3000, Current,7.5,new Date(),C2);
+        Account A12344 = new Account( (double) 4000, Deposit,2.5,new Date(),C3);
+        Account A12345 = new Account( (double) 5000, Savings,12.5,new Date(),C4);
+
 
         accountRepository.save(A12341);
         accountRepository.save(A12342);
@@ -48,39 +59,18 @@ public class BankingApplicationRunner implements CommandLineRunner {
         accountRepository.save(A12344);
         accountRepository.save(A12345);
 
-        Customer C1 = new Customer("Attyuttam Saha", "attyuttam@gmail.com", "Achintya Kumar Saha", "Achintya Kumar Saha", "Anita Saha");
-        Customer C2 = new Customer("Anupam Saha", "anup89@gmail.com", "Achintya Kumar Saha", "Achintya Kumar Saha", "Anita Saha");
-        Customer C3 = new Customer("Sraddha Chakraborty", "sraddha@gmail.com", "Subir Chakraborty", "Subir Chakraborty", "Jaba Chakraborty");
-        Customer C4 = new Customer("Puskar Karmakar", "puskarisgod@gmail.com", "Tapas Karmakar", "Tapas Karmakar", "Tulika Karmakar");
 
-        customerRepository.save(C1);
-        customerRepository.save(C2);
-        customerRepository.save(C3);
-        customerRepository.save(C4);
-
-        CustomerAccount CA1 = new CustomerAccount(new CustomerAccountID(C1,A12341), new Date());
-        CustomerAccount CA2 = new CustomerAccount(new CustomerAccountID(C2,A12342),new Date());
-        CustomerAccount CA3 = new CustomerAccount(new CustomerAccountID(C3,A12343),new Date());
-        CustomerAccount CA4 = new CustomerAccount(new CustomerAccountID(C4,A12344),new Date());
-        CustomerAccount CA5 = new CustomerAccount(new CustomerAccountID(C4,A12345),new Date());
-
-        customerAccountRepository.save(CA1);
-        customerAccountRepository.save(CA2);
-        customerAccountRepository.save(CA3);
-        customerAccountRepository.save(CA4);
-        customerAccountRepository.save(CA5);
-
-        accountTransactionRepository.save(new AccountTransaction(new Date(),(double) 1000,A12341));
-        accountTransactionRepository.save(new AccountTransaction(new Date(),(double) 1000,A12342));
-        accountTransactionRepository.save(new AccountTransaction(new Date(),(double) 1000,A12343));
-        accountTransactionRepository.save(new AccountTransaction(new Date(),(double) 1000,A12344));
-        accountTransactionRepository.save(new AccountTransaction(new Date(),(double) 1000,A12341));
-        accountTransactionRepository.save(new AccountTransaction(new Date(),(double) 1000,A12342));
-        accountTransactionRepository.save(new AccountTransaction(new Date(),(double) 1000,A12343));
-
-        ACA aca1 = new ACA("101","Achintya Kumar Saha",new Date(),"Siliguri");
-        ACA aca2 = new ACA("102","Anupam Saha",new Date(),"Siliguri");
+        ACA aca1 = new ACA("Achintya Kumar Saha",new Date(),"Siliguri","8617033526","a@gmail.com");
+        ACA aca2 = new ACA("Anupam Saha",new Date(),"Siliguri","8617033526","b@gmail.com");
         acaRepository.save(aca1);
         acaRepository.save(aca2);
+
+        accountTransactionRepository.save(new AccountTransaction(new Date(),(double) 1000,A12341/*.getAccountID()*/,aca1/*.getAcaID()*/));
+        accountTransactionRepository.save(new AccountTransaction(new Date(),(double) 1000,A12342/*.getAccountID()*/,aca1/*.getAcaID()*/));
+        accountTransactionRepository.save(new AccountTransaction(new Date(),(double) 1000,A12343/*.getAccountID()*/,aca1/*.getAcaID()*/));
+        accountTransactionRepository.save(new AccountTransaction(new Date(),(double) 1000,A12344/*.getAccountID()*/,aca1/*.getAcaID()*/));
+        accountTransactionRepository.save(new AccountTransaction(new Date(),(double) 1000,A12341/*.getAccountID()*/,aca2/*.getAcaID()*/));
+        accountTransactionRepository.save(new AccountTransaction(new Date(),(double) 1000,A12342/*.getAccountID()*/,aca2/*.getAcaID()*/));
+        accountTransactionRepository.save(new AccountTransaction(new Date(),(double) 1000,A12343/*.getAccountID()*/,aca2/*.getAcaID()*/));
     }
 }

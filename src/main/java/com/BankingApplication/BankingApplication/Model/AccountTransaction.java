@@ -1,12 +1,20 @@
 package com.BankingApplication.BankingApplication.Model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "AccountTransaction")
+@NoArgsConstructor
+@Getter
+@Setter
 public class AccountTransaction {
     @Id
     @Column(name = "transaction_id")
@@ -14,52 +22,31 @@ public class AccountTransaction {
     private String transactionID;
 
     @Column(name = "transaction_time_stamp")
-    private Date transactionTimeStamp;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+    private  Date transactionTimeStamp;
 
     @Column(name = "transaction_amount")
-    private Double transactionAmount;
+    private  Double transactionAmount;
+
+
+    @OneToOne(fetch = FetchType.LAZY,targetEntity = Account.class)
+    @JoinColumn(name = "account_id_fk", referencedColumnName = "account_id")
+    @JsonIgnore
+    private  Account account;
+
 
     @JsonBackReference
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id_fk", referencedColumnName = "account_id")
-    private Account accountID;
+    @ManyToOne(targetEntity = ACA.class)
+    @JoinColumn(name = "aca_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private  ACA aca;
 
-
-    public AccountTransaction(){}
-    public AccountTransaction(Date transactionTimeStamp, Double transactionAmount, Account accountID) {
+    public AccountTransaction(Date transactionTimeStamp, Double transactionAmount, Account account, ACA aca){
         this.transactionTimeStamp = transactionTimeStamp;
         this.transactionAmount = transactionAmount;
-        this.accountID = accountID;
-    }
-    public String getTransactionID() {
-        return transactionID;
+        this.account = account;
+        this.aca = aca;
     }
 
-    public void setTransactionID(String transactionID) {
-        this.transactionID = transactionID;
-    }
 
-    public Date getTransactionTimeStamp() {
-        return transactionTimeStamp;
-    }
-
-    public void setTransactionTimeStamp(Date transactionTimeStamp) {
-        this.transactionTimeStamp = transactionTimeStamp;
-    }
-
-    public Double getTransactionAmount() {
-        return transactionAmount;
-    }
-
-    public void setTransactionAmount(Double transactionAmount) {
-        this.transactionAmount = transactionAmount;
-    }
-
-    public Account getAccountID() {
-        return accountID;
-    }
-
-    public void setAccountID(Account accountID) {
-        this.accountID = accountID;
-    }
 }

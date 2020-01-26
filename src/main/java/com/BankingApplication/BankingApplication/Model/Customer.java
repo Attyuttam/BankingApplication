@@ -1,9 +1,20 @@
 package com.BankingApplication.BankingApplication.Model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
+import java.util.Date;
+
 
 @Entity
 @Table(name = "Customer")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Customer {
     @Id
     @Column(name = "customer_id")
@@ -11,6 +22,11 @@ public class Customer {
     private String customerID;
     @Column(name = "customer_name")
     private String customerName;
+
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+    @Column(name = "dob")
+    private Date dob;
+
     @Column(name = "email_id")
     private String emailId;
     @Column(name = "guardian_name")
@@ -20,61 +36,13 @@ public class Customer {
     @Column(name = "mother_name")
     private String motherName;
 
-    public Customer(){}
 
-    public Customer( String customerName, String emailId, String guardianName, String fatherName, String motherName) {
-
+    public Customer(String customerName, Date dob,String emailId, String guardianName, String fatherName, String motherName){
         this.customerName = customerName;
+        this.dob = dob;
         this.emailId = emailId;
         this.guardianName = guardianName;
         this.fatherName = fatherName;
-        this.motherName = motherName;
-    }
-    public String getCustomerID() {
-        return customerID;
-    }
-
-    public void setCustomerID(String customerID) {
-        this.customerID = customerID;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public String getEmailId() {
-        return emailId;
-    }
-
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
-    }
-
-    public String getGuardianName() {
-        return guardianName;
-    }
-
-    public void setGuardianName(String guardianName) {
-        this.guardianName = guardianName;
-    }
-
-    public String getFatherName() {
-        return fatherName;
-    }
-
-    public void setFatherName(String fatherName) {
-        this.fatherName = fatherName;
-    }
-
-    public String getMotherName() {
-        return motherName;
-    }
-
-    public void setMotherName(String motherName) {
-        this.motherName = motherName;
+        this.motherName= motherName;
     }
 }

@@ -1,9 +1,14 @@
 package com.BankingApplication.BankingApplication.Model;
 
+import lombok.*;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "AccountType")
+@Getter
+@Setter
+@NoArgsConstructor
 public class AccountType {
     @Id
     @Column(name = "account_type_id")
@@ -11,25 +16,9 @@ public class AccountType {
     private String accountTypeID;
 
     @Column(name = "account_type")
-    private String accountType;
+    private  String accountType;
 
-    public AccountType(){}
-    public AccountType(String accountType) {
-        this.accountType = accountType;
-    }
-    public String getAccountTypeID() {
-        return accountTypeID;
-    }
-
-    public void setAccountTypeID(String accountTypeID) {
-        this.accountTypeID = accountTypeID;
-    }
-
-    public String getAccountType() {
-        return accountType;
-    }
-
-    public void setAccountType(String accountType) {
+    public AccountType(String accountType){
         this.accountType = accountType;
     }
 }
