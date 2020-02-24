@@ -12,11 +12,7 @@ const Toolbar = props => (
             </div>
             <div className={'toolbar__logo'}><a href={'/'}>UTTAR BANGA KSHETRIYA GRAMIN BANK</a></div>
             <div className={'spacer'}/>
-            <div className={'toolbar_navigation-items'}>
-                <ul>
-                    <li><NavLink className={'toolbar-link'} to={'/'}>Home</NavLink></li>
-                </ul>
-            </div>
+            <NavLink className={'toolbar-link'} to={'/'}>Home</NavLink>
         </nav>
     </header>
 );

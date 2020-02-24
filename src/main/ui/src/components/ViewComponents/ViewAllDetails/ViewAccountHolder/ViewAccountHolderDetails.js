@@ -1,6 +1,6 @@
 import React from "react";
 
-class ViewAccountHolder extends React.Component {
+class ViewAccountHolderDetails extends React.Component {
     constructor(props){
         super(props);
         this.state = {
@@ -8,7 +8,7 @@ class ViewAccountHolder extends React.Component {
         }
     }
     componentDidMount() {
-        fetch('http://localhost:8080/customerDetails')
+        fetch('http://localhost:8080/customers')
             .then(response => response.json())
             .then((dataReceived) =>{
                 this.setState({
@@ -56,8 +56,8 @@ class ViewAccountHolder extends React.Component {
                                     <td>{index+1}</td>
                                     <td>{item.customerID}</td>
                                     <td>{item.customerName}</td>
-                                    <td>{item.customerEmailID}</td>
-                                    <td>{item.customerGuardianName}</td>
+                                    <td>{item.emailId}</td>
+                                    <td>{item.guardianName}</td>
                                     <td>{item.customerAccountID}</td>
                                     <td>{item.customerAccountBalance}</td>
                                     <td>{item.customerAccountLastAccessTimeStamp}</td>
@@ -75,4 +75,4 @@ class ViewAccountHolder extends React.Component {
         }
     }
 }
-export default ViewAccountHolder;
+export default ViewAccountHolderDetails;

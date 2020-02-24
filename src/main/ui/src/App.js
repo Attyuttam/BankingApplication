@@ -5,14 +5,15 @@ import Backdrop from "./components/Backdrop/Backdrop";
 import LandingPage from "./components/ViewComponents/LandingPage/LandingPage";
 import EnterACADetails from "./components/ViewComponents/EnterACADetails/EnterACADetails";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
-import ViewACADetails from "./components/ViewComponents/ViewACADetails/ViewACADetails";
+import ViewACADetails from "./components/ViewComponents/ViewAllDetails/ViewACADetails/ViewACADetails";
 import CreateAccountEntry from "./components/ViewComponents/CreateAccountEntry/CreateAccountEntry";
 import EditAccountHolder from "./components/ViewComponents/EditAccountHolder/EditAccountHolder";
 import EnterNewAccountHolder from "./components/ViewComponents/EnterNewAccountHolder/EnterNewAccountHolder";
 import ViewWeeklyChart from "./components/ViewComponents/ViewWeeklyChart/ViewWeeklyChart";
 import ViewMonthlyChart from "./components/ViewComponents/ViewMonthlyChart/ViewMonthlyChart";
 import ViewYearlyChart from "./components/ViewComponents/ViewYearlyChart/ViewYearlyChart";
-import ViewAccountHolder from "./components/ViewComponents/ViewAccountHolder/ViewAccountHolder";
+import ViewAccountHolderDetails from "./components/ViewComponents/ViewAllDetails/ViewAccountHolder/ViewAccountHolderDetails";
+import ViewAllDetails from "./components/ViewComponents/ViewAllDetails/ViewAllDetatils";
 class App extends  React.Component{
     state = {
         sideDrawerOpen: false,
@@ -42,10 +43,11 @@ class App extends  React.Component{
                         <Switch>
                             <Route exact path='/' component={LandingPage}/>
                             <Route path='/enterACADetails' component={EnterACADetails}/>
+                            <Route path='/viewAllDetails' component={ViewAllDetails}/>
                             <Route path='/viewACADetails' component={ViewACADetails}/>
                             <Route path='/createAccountEntry' component={CreateAccountEntry}/>
                             <Route path='/editAccountHolder' component={EditAccountHolder}/>
-                            <Route path='/viewAccountHolder' component={ViewAccountHolder}/>
+                            <Route path='/viewAccountHolderDetails' component={ViewAccountHolderDetails}/>
                             <Route path='/enterNewAccountHolder' component={EnterNewAccountHolder}/>
                             <Route path='/viewWeeklyChart' component={ViewWeeklyChart}/>
                             <Route path='/viewMonthlyChart' component={ViewMonthlyChart}/>
