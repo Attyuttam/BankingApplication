@@ -22,7 +22,7 @@ public class ACAService {
             acaRepository.findAll().forEach(aca::add);
             return aca;
         }
-        public String save(ACA aca){
+        public ACA save(ACA aca){
             List<ACA> acaList = new ArrayList<>();
             acaRepository.findAll().forEach(acaList::add);
             for (ACA value : acaList) {
@@ -33,9 +33,9 @@ public class ACAService {
                         value.getAcaBirthDate().compareTo(aca.getAcaBirthDate())==0 &&
                         value.getAcaEmail().equals(aca.getAcaEmail()) &&
                         value.getAcaPhoneNum().equals(aca.getAcaPhoneNum()))
-                    return "ACA already exisits with ID: " + value.getAcaID();
+                    return  value;
             }
-            return acaRepository.save(aca).getAcaID();
+            return acaRepository.save(aca);
         }
 
         public Long count() {

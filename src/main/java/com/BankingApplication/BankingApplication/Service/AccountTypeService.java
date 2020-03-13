@@ -26,4 +26,8 @@ public class AccountTypeService {
     public void deleteById(String accountTypeId) {
         accountTypeRepository.deleteById(accountTypeId);
     }
+
+    public AccountType findByAccountType(String accountType) {
+        return accountTypeRepository.findByAccountType(accountType);
+    }
 }

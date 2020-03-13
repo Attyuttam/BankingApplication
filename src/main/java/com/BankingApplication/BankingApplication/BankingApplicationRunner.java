@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.logging.Logger;
 
@@ -46,11 +47,11 @@ public class BankingApplicationRunner implements CommandLineRunner {
         customerRepository.save(C3);
         customerRepository.save(C4);
 
-        Account A12341 = new Account( (double) 1000, Savings,12.5,new Date(),C1);
-        Account A12342 = new Account( (double) 2000, Savings,12.5,new Date(),C1);
-        Account A12343 = new Account( (double) 3000, Current,7.5,new Date(),C2);
-        Account A12344 = new Account( (double) 4000, Deposit,2.5,new Date(),C3);
-        Account A12345 = new Account( (double) 5000, Savings,12.5,new Date(),C4);
+        Account A12341 = new Account( (double) 1000, Savings,12.5,new Timestamp(new Date().getTime()),C1);
+        Account A12342 = new Account( (double) 2000, Savings,12.5,new Timestamp(new Date().getTime()),C1);
+        Account A12343 = new Account( (double) 3000, Current,7.5,new Timestamp(new Date().getTime()),C2);
+        Account A12344 = new Account( (double) 4000, Deposit,2.5,new Timestamp(new Date().getTime()),C3);
+        Account A12345 = new Account( (double) 5000, Savings,12.5,new Timestamp(new Date().getTime()),C4);
 
 
         accountRepository.save(A12341);
