@@ -42,7 +42,7 @@ public class BankingApplicationController {
     public Long countNumberOfACA() {
         return acaService.count();
     }
-    @DeleteMapping("/aca/{acaId}")
+    @DeleteMapping("/removeAca/{acaId}")
     public void deleteACA(@PathVariable String acaId) {
         acaService.deleteById(acaId);
     }

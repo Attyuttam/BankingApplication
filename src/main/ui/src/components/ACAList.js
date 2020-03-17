@@ -18,7 +18,9 @@ function ACAList(props){
             {props.acas.map(aca => {
                 return(
                     <tr key={aca.acaID}>
-                        <td>&nbsp;</td>
+                        <td>
+                           &nbsp;
+                        </td>
                         <td>{aca.acaID}</td>
                         <td>{aca.acaName}</td>
                         <td>{aca.acaBirthDate}</td>
