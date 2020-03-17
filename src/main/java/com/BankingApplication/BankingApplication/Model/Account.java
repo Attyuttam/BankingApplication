@@ -4,14 +4,12 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -37,8 +35,8 @@ public class Account {
     private Double interestRate;
 
     @Column(name = "last_access_time_stamp")
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
-    private Date lastAccessTimeStamp;
+    //@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+    private Timestamp lastAccessTimeStamp;
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -46,7 +44,7 @@ public class Account {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Customer customer;
 
-    public Account(Double accountBalance,AccountType accountTypeID,Double interestRate, Date lastAccessTimeStamp,Customer customer){
+    public Account(Double accountBalance,AccountType accountTypeID,Double interestRate, Timestamp lastAccessTimeStamp,Customer customer){
         this.accountBalance =accountBalance;
         this.accountTypeID = accountTypeID;
         this.interestRate = interestRate;

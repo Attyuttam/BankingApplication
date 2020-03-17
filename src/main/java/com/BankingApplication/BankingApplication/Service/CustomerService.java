@@ -26,7 +26,7 @@ public class CustomerService {
         customerRepository.deleteById(customerId);
     }
 
-    public String save(Customer customer) {
+    public Customer save(Customer customer) {
         List<Customer> customerList = new ArrayList<>();
         customerRepository.findAll().forEach(customerList::add);
         for (Customer value : customerList) {
@@ -36,9 +36,13 @@ public class CustomerService {
                     value.getFatherName().equals(customer.getFatherName()) &&
                     value.getGuardianName().equals(customer.getGuardianName()) &&
                     value.getMotherName().equals(customer.getMotherName())) {
-                return "Customer already exists with Id: " + value.getCustomerID();
+                return null;
             }
         }
-        return customerRepository.save(customer).getCustomerID();
+        return customerRepository.save(customer);
+    }
+
+    public Customer findByCustomerID(String customer) {
+        return customerRepository.findByCustomerID(customer);
     }
 }

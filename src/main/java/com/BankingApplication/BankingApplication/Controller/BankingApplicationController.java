@@ -2,6 +2,7 @@ package com.BankingApplication.BankingApplication.Controller;
 
 import com.BankingApplication.BankingApplication.Model.*;
 import com.BankingApplication.BankingApplication.Service.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
@@ -9,12 +10,16 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static java.lang.Double.parseDouble;
+
 @RestController
+@Slf4j
 public class BankingApplicationController {
     @Autowired
     private AccountService accountService;
@@ -29,8 +34,7 @@ public class BankingApplicationController {
     private ACAService acaService;
 
     //ACA Controller
-    //@CrossOrigin("http://localhost:3000")
-    @GetMapping("/getAca")
+    @GetMapping("/getAllAca")
     public List<ACA> getAllACA() {
         return acaService.findAll();
     }
@@ -43,13 +47,12 @@ public class BankingApplicationController {
         acaService.deleteById(acaId);
     }
     @PostMapping("/addAca")
-    public String createACA(@RequestBody ACA aca){
+    public ACA createACA(@RequestBody ACA aca){
         return acaService.save(aca);
     }
 
 
     //Account Controller
-    //@CrossOrigin("http://localhost:3000")
     @GetMapping("/accounts")
     public List<Account> getAllAccounts() {
         return accountService.findAll();
@@ -63,11 +66,28 @@ public class BankingApplicationController {
         accountService.deleteById(accountId);
     }
     @PostMapping("/addAccount")
-    public String createAccount(@RequestBody Account account){
-        return accountService.save(account);
+    public ViewAccountDTO createAccount(@RequestBody saveAccountDTO accountDTO){
+        Customer customer = customerService.findByCustomerID(accountDTO.getCustomer());
+        AccountType accountType = accountTypeService.findByAccountType(accountDTO.getAccountType());
+        Account account = accountService.save(new Account(parseDouble(accountDTO.getAccountBalance()),accountType,parseDouble(accountDTO.getInterestRate()),new Timestamp(new Date().getTime()),customer));
+        return ViewAccountDTO.builder()
+                .accountBalance(account.getAccountBalance())
+                .accountType(account.getAccountTypeID().getAccountType())
+                .accountTypeID(account.getAccountTypeID().getAccountTypeID())
+                .lastAccessTimeStamp(account.getLastAccessTimeStamp())
+                .interestRate(account.getInterestRate())
+                .accountID(account.getAccountID())
+                .build();
     }
+    @RequestMapping("/allAccounts")
+    public List<ViewAccountDTO> getAccounts(){return accountService.findAccounts();}
 
     //AccountTransaction Controller
+    @RequestMapping("/allDetailedAccountTransactions")
+    public List<ViewAllDetailsDTO> getAllDetailedAccountTransactions() {
+        return accountTransactionService.findAllDetailedAccountTransactions();
+    }
+
     @GetMapping("/accountTransactions")
     public List<AccountTransaction> getAllAccountTransactions() {
         return accountTransactionService.findAll();
@@ -87,11 +107,11 @@ public class BankingApplicationController {
 
 
     @GetMapping("/getTransactionsInRange/From/{startDate}/To/{endDate}")
-    public List<AccountTransaction> getAllAccountTransactionsInRange(@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") Date startDate, @PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") Date endDate){
+    public List<ViewAccountTransactionsDTO> getAllAccountTransactionsInRange(@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") Date startDate, @PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") Date endDate){
         return accountTransactionService.findAllAccountTransactionInRange(startDate,endDate);
     }
     @GetMapping("/getTransactionsForDate/{date}")
-    public List<AccountTransaction> getAllAccountTransactionForDate(@PathVariable  @DateTimeFormat(pattern = "dd-MM-yyyy") Date date){
+    public List<ViewAccountTransactionsDTO> getAllAccountTransactionForDate(@PathVariable  @DateTimeFormat(pattern = "dd-MM-yyyy") Date date){
         return accountTransactionService.findAllAccountTransactionInRange(date,date);
     }
     @GetMapping("/getTransactionsFor/Month/{monthNumber}/Year/{year}")
@@ -146,7 +166,7 @@ public class BankingApplicationController {
         customerService.deleteById(customerId);
     }
     @PostMapping("/addCustomer")
-    public String createCustomer(@RequestBody Customer customer){
+    public Customer createCustomer(@RequestBody Customer customer){
         return customerService.save(customer);
     }
 }
