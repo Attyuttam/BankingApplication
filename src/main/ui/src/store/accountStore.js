@@ -27,7 +27,6 @@ Dispatcher.register(action => {
     }
     else if(action.actionType === actionTypes.CREATE_ACCOUNT){
         _accounts.push(action.account);
-        console.log(_accounts);
         store.emitChange();
     }
 });

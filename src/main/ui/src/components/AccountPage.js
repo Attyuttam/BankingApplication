@@ -5,12 +5,15 @@ import {loadAccounts} from "../actions/accountActions";
 import {Link} from "react-router-dom";
 
 function AccountPage(){
-    const[accounts,setAccounts] = useState(accountStore.getAccounts());
+    const [accounts,setAccounts] = useState(accountStore.getAccounts());
 
     useEffect(() => {
         accountStore.addChangeListener(onChange);
         if(accountStore.getAccounts().length === 0) loadAccounts();
-        return () => accountStore.removeChangeListener(onChange);
+        return () => {
+            accountStore.removeChangeListener(onChange);
+        }
+
     },[]);
 
     function onChange(){

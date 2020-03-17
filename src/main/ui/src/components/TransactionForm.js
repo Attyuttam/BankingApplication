@@ -21,7 +21,7 @@ function TransactionForm(props) {
                 value={props.range.endDate}
                 error={props.errors.endDate}
             />
-            <input type="submit" value="Save" className="btn btn-primary" />
+            <input type="submit" value="View" className="btn btn-primary" />
         </form>
     );
 }

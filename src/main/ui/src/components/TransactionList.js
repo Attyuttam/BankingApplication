@@ -20,19 +20,19 @@ function TransactionList(props) {
             </tr>
             </thead>
             <tbody>
-            {props.accounts.map(account => {
+            {props.transactions.map(transaction => {
                 return (
-                    <tr key={account.transactionID}>
+                    <tr key={transaction.transactionID}>
                         <td>&nbsp;</td>
-                        <td>{account.transactionID}</td>
-                        <td>{account.transactionAmount}</td>
-                        <td>{account.transactionTimeStamp}</td>
-                        <td>{account.acaID}</td>
-                        <td>{account.acaName}</td>
-                        <td>{account.customerID}</td>
-                        <td>{account.customerName}</td>
-                        <td>{account.accountID}</td>
-                        <td>{account.accountType}</td>
+                        <td>{transaction.transactionID}</td>
+                        <td>{transaction.transactionAmount}</td>
+                        <td>{transaction.transactionTimeStamp}</td>
+                        <td>{transaction.acaID}</td>
+                        <td>{transaction.acaName}</td>
+                        <td>{transaction.customerID}</td>
+                        <td>{transaction.customerName}</td>
+                        <td>{transaction.accountID}</td>
+                        <td>{transaction.accountType}</td>
                     </tr>
                 );
             })}

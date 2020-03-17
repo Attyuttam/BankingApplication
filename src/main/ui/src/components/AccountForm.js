@@ -1,12 +1,33 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import TextInput from "./common/textInput";
+import accountTypeStore from "../store/accountTypeStore";
+import customerStore from "../store/customerStore";
+import accountStore from "../store/accountStore";
+import {loadAccounts} from "../actions/accountActions";
+import {loadAccountTypes} from "../actions/accountTypesActions";
+import {loadCustomers} from "../actions/customerActions";
 //import PropTypes from "prop-types";
 
 //TODO:
-// 1. ensure that the account Type options are displayed from the DB
-// 2. ensure there's a search option for customer which provides details from the DB
+// 1. ensure that the account Type options are displayed from the DB (DONE)
+// 2. ensure there's a search option for customer which provides details from the DB (DONE)
 
 function AccountForm(props) {
+    const [accountTypes, setAccountTypes] =  useState(accountTypeStore.getAccountTypes());
+    const [customers, setCustomers] = useState(customerStore.getCustomers());
+
+    useEffect(() => {
+        accountTypeStore.addChangeListener(onChange);
+        customerStore.addChangeListener(onChange);
+        if(accountTypeStore.getAccountTypes().length === 0) loadAccountTypes();
+        if(customerStore.getCustomers().length === 0)loadCustomers();
+        return () => {accountTypeStore.removeChangeListener(onChange);customerStore.removeChangeListener(onChange);}
+    },[]);
+
+    function onChange(){
+        setAccountTypes(accountTypeStore.getAccountTypes());
+        setCustomers(customerStore.getCustomers());
+    }
     return (
         <form onSubmit={props.onSubmit}>
             <TextInput
@@ -19,7 +40,7 @@ function AccountForm(props) {
             />
 
             <div className="form-group">
-                <label htmlFor="author">Account Type</label>
+                <label htmlFor="accountType">Account Type</label>
                 <div className="field">
                     <select
                         id="accountType"
@@ -29,9 +50,11 @@ function AccountForm(props) {
                         className="form-control"
                     >
                         <option value="" />
-                        <option value="Savings">Savings</option>
-                        <option value="Current">Current</option>
-                        <option value="Deposit">Deposit</option>
+                        {accountTypes.map(accountType => {
+                            return(
+                                <option key={accountType.accountTypeID} value={accountType.accountType}>{accountType.accountType}</option>
+                            );
+                        })}
                     </select>
                 </div>
                 {props.errors.accountType && (
@@ -47,14 +70,29 @@ function AccountForm(props) {
                 value={props.account.interestRate}
                 error={props.errors.interestRate}
             />
-            <TextInput
-                id="customer"
-                label="Customer"
-                onChange={props.onChange}
-                name="customer"
-                value={props.account.customer}
-                error={props.errors.customer}
-            />
+            <div className="form-group">
+                <label htmlFor="Customer">Customer</label>
+                <div className="field">
+                    <select
+                        id="customer"
+                        name="customer"
+                        onChange={props.onChange}
+                        value={props.account.customer || ""}
+                        className="form-control"
+                    >
+                        <option value="" />
+                        {customers.map(customer => {
+                            return(
+                                <option key={customer.customerID} value={customer.customerID}>{customer.customerID}({customer.customerName})</option>
+                            );
+                        })}
+                    </select>
+                </div>
+                {props.errors.customer && (
+                    <div className="alert alert-danger">{props.errors.customer}</div>
+                )}
+            </div>
+
             <input type="submit" value="Save" className="btn btn-primary" />
         </form>
     );

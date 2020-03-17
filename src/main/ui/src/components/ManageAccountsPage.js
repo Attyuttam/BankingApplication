@@ -32,8 +32,9 @@ const ManageAccountsPage = props => {
     });
     useEffect(() => {
         accountStore.addChangeListener(onChange);
-        return () => accountStore.removeChangeListener(onChange);
+        return () => {accountStore.removeChangeListener(onChange);}
     }, [accounts.length]);
+
     function onChange() {
         setAccounts(accountStore.getAccounts());
     }

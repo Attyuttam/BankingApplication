@@ -14,6 +14,7 @@ import ManageACAPage from "./ManageACAPage";
 import ManageAccountsPage from "./ManageAccountsPage";
 import CustomerPage from "./CustomerPage";
 import ManageCustomerPage from "./ManageCustomerPage";
+import ManageTransactionsPage from "./ManageTransactionsPage";
 
 function App() {
     return (
@@ -31,6 +32,7 @@ function App() {
                 <Route path="/manageACA" component={ManageACAPage}/>
                 <Route path="/manageAccount" component={ManageAccountsPage}/>
                 <Route path="/manageCustomer" component={ManageCustomerPage}/>
+                <Route path="/manageTransactions" component={ManageTransactionsPage}/>
                 <Redirect from="/about-page" to="about" />
                 <Route component={NotFoundPage} />
             </Switch>

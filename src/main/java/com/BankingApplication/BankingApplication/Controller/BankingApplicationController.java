@@ -107,11 +107,11 @@ public class BankingApplicationController {
 
 
     @GetMapping("/getTransactionsInRange/From/{startDate}/To/{endDate}")
-    public List<AccountTransaction> getAllAccountTransactionsInRange(@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") Date startDate, @PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") Date endDate){
+    public List<ViewAccountTransactionsDTO> getAllAccountTransactionsInRange(@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") Date startDate, @PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") Date endDate){
         return accountTransactionService.findAllAccountTransactionInRange(startDate,endDate);
     }
     @GetMapping("/getTransactionsForDate/{date}")
-    public List<AccountTransaction> getAllAccountTransactionForDate(@PathVariable  @DateTimeFormat(pattern = "dd-MM-yyyy") Date date){
+    public List<ViewAccountTransactionsDTO> getAllAccountTransactionForDate(@PathVariable  @DateTimeFormat(pattern = "dd-MM-yyyy") Date date){
         return accountTransactionService.findAllAccountTransactionInRange(date,date);
     }
     @GetMapping("/getTransactionsFor/Month/{monthNumber}/Year/{year}")

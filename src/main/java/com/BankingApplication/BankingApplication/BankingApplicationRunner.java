@@ -7,6 +7,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Logger;
 
@@ -70,8 +72,18 @@ public class BankingApplicationRunner implements CommandLineRunner {
         accountTransactionRepository.save(new AccountTransaction(new Date(),(double) 1000,A12342/*.getAccountID()*/,aca1/*.getAcaID()*/));
         accountTransactionRepository.save(new AccountTransaction(new Date(),(double) 1000,A12343/*.getAccountID()*/,aca1/*.getAcaID()*/));
         accountTransactionRepository.save(new AccountTransaction(new Date(),(double) 1000,A12344/*.getAccountID()*/,aca1/*.getAcaID()*/));
-        accountTransactionRepository.save(new AccountTransaction(new Date(),(double) 1000,A12341/*.getAccountID()*/,aca2/*.getAcaID()*/));
-        accountTransactionRepository.save(new AccountTransaction(new Date(),(double) 1000,A12342/*.getAccountID()*/,aca2/*.getAcaID()*/));
+        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String dateString = "2020-03-10";
+        Date dateObject = sdf.parse(dateString);
+        accountTransactionRepository.save(new AccountTransaction(dateObject,(double) 1000,A12341/*.getAccountID()*/,aca2/*.getAcaID()*/));
+
+        dateString = "2020-03-26";
+        dateObject = sdf.parse(dateString);
+        accountTransactionRepository.save(new AccountTransaction(dateObject,(double) 1000,A12342/*.getAccountID()*/,aca2/*.getAcaID()*/));
+
+        dateString = "2020-03-27";
+        dateObject = sdf.parse(dateString);
+        accountTransactionRepository.save(new AccountTransaction(dateObject,(double) 1000,A12343/*.getAccountID()*/,aca2/*.getAcaID()*/));
         accountTransactionRepository.save(new AccountTransaction(new Date(),(double) 1000,A12343/*.getAccountID()*/,aca2/*.getAcaID()*/));
     }
 }

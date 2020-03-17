@@ -100,7 +100,7 @@ public class AccountTransactionService {
     }
 
 
-    public List<AccountTransaction> findAllAccountTransactionInRange(Date startDate, Date endDate) {
+    public List<ViewAccountTransactionsDTO> findAllAccountTransactionInRange(Date startDate, Date endDate) {
         LocalDateTime localStartDate = LocalDateTime.ofInstant(startDate.toInstant(), ZoneId.systemDefault());
         localStartDate = localStartDate.minusDays(1);
         startDate = Date.from(localStartDate.atZone(ZoneId.systemDefault()).toInstant());
@@ -109,7 +109,23 @@ public class AccountTransactionService {
         localEndDate = localEndDate.plusDays(1);
         endDate = Date.from(localEndDate.atZone(ZoneId.systemDefault()).toInstant());
 
-        return accountTransactionRepository.findBytransactionTimeStampBetween(startDate,endDate);
+        List<AccountTransaction> accountTransactions = new ArrayList<>();
+        accountTransactionRepository.findBytransactionTimeStampBetween(startDate, endDate).forEach(accountTransactions::add);
+        List<ViewAccountTransactionsDTO> viewAccountTransactionsDTOList = new ArrayList<>();
+        for (AccountTransaction accountTransaction : accountTransactions) {
+            viewAccountTransactionsDTOList.add(ViewAccountTransactionsDTO.builder()
+                    .acaID(accountTransaction.getAca().getAcaID())
+                    .acaName(accountTransaction.getAca().getAcaName())
+                    .customerID(accountTransaction.getAccount().getCustomer().getCustomerID())
+                    .customerName(accountTransaction.getAccount().getCustomer().getCustomerName())
+                    .accountID(accountTransaction.getAccount().getAccountID())
+                    .accountType(accountTransaction.getAccount().getAccountTypeID().getAccountType())
+                    .transactionID(accountTransaction.getTransactionID())
+                    .transactionAmount(accountTransaction.getTransactionAmount())
+                    .transactionTimeStamp(accountTransaction.getTransactionTimeStamp())
+                    .build());
+        }
+        return viewAccountTransactionsDTOList;
     }
 
     public List<AccountTransaction> findAllAccountTransationForMonth(Integer monthNumber, Integer year) throws ParseException {
