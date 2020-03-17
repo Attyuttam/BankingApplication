@@ -23,7 +23,7 @@ public class Customer {
     @Column(name = "customer_name")
     private String customerName;
 
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     @Column(name = "dob")
     private Date dob;
 

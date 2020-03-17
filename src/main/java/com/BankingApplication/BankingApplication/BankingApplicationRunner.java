@@ -27,7 +27,9 @@ public class BankingApplicationRunner implements CommandLineRunner {
     private ACARepository acaRepository;
     @Override
     public void run(String... args) throws Exception {
+
         Logger.getAnonymousLogger().info("initializing all tables");
+        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         AccountType Savings = new AccountType("Savings");
         AccountType Deposit = new AccountType("Deposit");
@@ -72,7 +74,7 @@ public class BankingApplicationRunner implements CommandLineRunner {
         accountTransactionRepository.save(new AccountTransaction(new Date(),(double) 1000,A12342/*.getAccountID()*/,aca1/*.getAcaID()*/));
         accountTransactionRepository.save(new AccountTransaction(new Date(),(double) 1000,A12343/*.getAccountID()*/,aca1/*.getAcaID()*/));
         accountTransactionRepository.save(new AccountTransaction(new Date(),(double) 1000,A12344/*.getAccountID()*/,aca1/*.getAcaID()*/));
-        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
         String dateString = "2020-03-10";
         Date dateObject = sdf.parse(dateString);
         accountTransactionRepository.save(new AccountTransaction(dateObject,(double) 1000,A12341/*.getAccountID()*/,aca2/*.getAcaID()*/));

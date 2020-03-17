@@ -17,11 +17,27 @@ function TransactionPage() {
         setTransactions(detailedAccountsStore.getDetailedAccounts());
     }
 
+    /*const buttonStyle = {
+        position: "relative",
+        paddingLeft: "105px"
+    };*/
     return (
         <>
             <h2 >Transaction details</h2>
-            <Link className="btn btn-primary" to="/manageTransactions">
+            <Link  className="btn btn-primary" to="/manageTransactionsInRange">
                 View Transactions in range
+            </Link>
+            &nbsp;
+            <Link  className="btn btn-primary" to="/manageTransactionsByACA">
+                View Transactions by ACA
+            </Link>
+            &nbsp;
+            <Link  className="btn btn-primary" to="/manageTransactionsByCustomer">
+                View Transactions by Customer
+            </Link>
+            &nbsp;
+            <Link  className="btn btn-primary" to="/manageTransactionsByAccount">
+                View Transactions by Account
             </Link>
             <TransactionList transactions={transactions} />
         </>

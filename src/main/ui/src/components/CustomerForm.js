@@ -15,6 +15,7 @@ function CustomerForm(props) {
             />
             <TextInput
                 id="dob"
+                type="date"
                 label="Customer DOB"
                 onChange={props.onChange}
                 name="dob"

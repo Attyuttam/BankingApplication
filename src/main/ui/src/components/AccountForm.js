@@ -11,6 +11,7 @@ import {loadCustomers} from "../actions/customerActions";
 //TODO:
 // 1. ensure that the account Type options are displayed from the DB (DONE)
 // 2. ensure there's a search option for customer which provides details from the DB (DONE)
+// 3. Find out what is the value prop used for in select (from the tutorial)
 
 function AccountForm(props) {
     const [accountTypes, setAccountTypes] =  useState(accountTypeStore.getAccountTypes());

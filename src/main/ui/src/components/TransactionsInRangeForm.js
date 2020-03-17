@@ -2,12 +2,13 @@ import React from "react";
 import TextInput from "./common/textInput";
 //import PropTypes from "prop-types";
 
-function TransactionForm(props) {
+function TransactionsInRangeForm(props) {
     return (
         <form onSubmit={props.onSubmit}>
             <TextInput
                 id="startDate"
                 label="Start date"
+                type="date"
                 onChange={props.onChange}
                 name="startDate"
                 value={props.range.startDate}
@@ -15,6 +16,7 @@ function TransactionForm(props) {
             />
             <TextInput
                 id="endDate"
+                type="date"
                 label="End date"
                 onChange={props.onChange}
                 name="endDate"
@@ -38,4 +40,4 @@ TextInput.defaultProps = {
     error: ""
 };
 
-export default TransactionForm;
+export default TransactionsInRangeForm;
