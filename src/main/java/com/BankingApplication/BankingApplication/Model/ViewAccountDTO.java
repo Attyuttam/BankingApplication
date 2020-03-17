@@ -18,7 +18,7 @@ public class ViewAccountDTO implements Serializable {
     private String accountID;
     private Double accountBalance;
     private Double interestRate;
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+    //@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private Date lastAccessTimeStamp;
 
     //account type details

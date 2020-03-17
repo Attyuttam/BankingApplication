@@ -92,26 +92,26 @@ public class BankingApplicationController {
     public List<AccountTransaction> getAllAccountTransactions() {
         return accountTransactionService.findAll();
     }
-    @GetMapping("/getTransactionByACA/{acaId}")
-    public List<AccountTransaction> getAllAccountTransactionsByAca(@PathVariable String acaId){
+    @GetMapping("/getTransactionsByACA/{acaId}")
+    public List<ViewAccountTransactionsDTO> getAllAccountTransactionsByAca(@PathVariable String acaId){
         return accountTransactionService.findAllAccountTransactionByAca(acaId);
     }
-    @GetMapping("/getTransactionByCustomer/{customerId}")
-    public List<AccountTransaction> getAllAccountTransactionsByCustomer(@PathVariable String customerId){
+    @GetMapping("/getTransactionsByCustomer/{customerId}")
+    public List<ViewAccountTransactionsDTO> getAllAccountTransactionsByCustomer(@PathVariable String customerId){
         return accountTransactionService.findAllAccountTransactionByCustomer(customerId);
     }
-    @GetMapping("/getTransactionByAccount/{accountId}")
-    public List<AccountTransaction> getAllAccountTransactionsByAccount(@PathVariable String accountId){
+    @GetMapping("/getTransactionsByAccount/{accountId}")
+    public List<ViewAccountTransactionsDTO> getAllAccountTransactionsByAccount(@PathVariable String accountId){
         return accountTransactionService.findAllAccountTransactionByAccount(accountId);
     }
 
 
     @GetMapping("/getTransactionsInRange/From/{startDate}/To/{endDate}")
-    public List<ViewAccountTransactionsDTO> getAllAccountTransactionsInRange(@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") Date startDate, @PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") Date endDate){
+    public List<ViewAccountTransactionsDTO> getAllAccountTransactionsInRange(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate){
         return accountTransactionService.findAllAccountTransactionInRange(startDate,endDate);
     }
     @GetMapping("/getTransactionsForDate/{date}")
-    public List<ViewAccountTransactionsDTO> getAllAccountTransactionForDate(@PathVariable  @DateTimeFormat(pattern = "dd-MM-yyyy") Date date){
+    public List<ViewAccountTransactionsDTO> getAllAccountTransactionForDate(@PathVariable  @DateTimeFormat(pattern = "yyyy-MM-dd") Date date){
         return accountTransactionService.findAllAccountTransactionInRange(date,date);
     }
     @GetMapping("/getTransactionsFor/Month/{monthNumber}/Year/{year}")

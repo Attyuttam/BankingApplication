@@ -25,5 +25,17 @@ Dispatcher.register(action => {
         _transactions = action.transactions;
         store.emitChange();
     }
+    else if(action.actionType === actionTypes.LOAD_TRANSACTIONS_BY_CUSTOMER){
+        _transactions = action.transactions;
+        store.emitChange();
+    }
+    else if(action.actionType === actionTypes.LOAD_TRANSACTIONS_BY_ACA){
+        _transactions = action.transactions;
+        store.emitChange();
+    }
+    else if(action.actionType === actionTypes.LOAD_TRANSACTIONS_BY_ACCOUNT){
+        _transactions = action.transactions;
+        store.emitChange();
+    }
 });
 export default store;

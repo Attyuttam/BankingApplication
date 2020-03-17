@@ -2,19 +2,18 @@ import React, {useEffect, useState} from "react";
 import * as transactionActions from "../actions/transactionActions";
 import transactionStore from "../store/transactionStore";
 import {toast} from "react-toastify";
-import TransactionForm from "./TransactionForm";
+import TransactionsByACAForm from "./TransactionsByACAForm";
 import TransactionList from "./TransactionList";
 
 //TODO:
 // 1. need to add validation on form so that the date is in the format DD-MM-YYYY
 // 2. need to auto generate the aca ID
 
-const ManageTransactionsPage = props => {
+const ManageTransactionsByACAPage = props => {
     const [errors, setErrors] = useState({});
     const [transactions,setTransactions] = useState(transactionStore.getTransactions());
-    const [range, setRange] = useState({
-        startDate:"",
-        endDate:""
+    const [aca, setACA] = useState({
+        acaID:""
     });
     useEffect(() => {
         transactionStore.addChangeListener(onChange);
@@ -24,16 +23,15 @@ const ManageTransactionsPage = props => {
         setTransactions(transactionStore.getTransactions());
     }
     function handleChange({ target }) {
-        setRange({
-            ...range,
+        setACA({
+            ...aca,
             [target.name]: target.value
         });
     }
 
     function formIsValid() {
         const _errors = {};
-        if (!range.startDate) _errors.startDate = "Start date is required";
-        if (!range.endDate) _errors.endDate = "End date is required";
+        if (!aca.acaID) _errors.acaID = "ACA ID is required";
 
         setErrors(_errors);
         // Form is valid if the errors object has no properties
@@ -43,16 +41,16 @@ const ManageTransactionsPage = props => {
     function handleSubmit(event) {
         event.preventDefault();
         if (!formIsValid()) return;
-        transactionActions.loadTransactionsByRange(range.startDate, range.endDate).then(() => {
-            props.history.push("/manageTransactions");
+        transactionActions.loadTransactionsByACA(aca.acaID).then(() => {
+            props.history.push("/manageTransactionsByACA");
             toast.success("Transactions displayed !");
         });
     }
     return (
         <>
-            <h2>View Transactions within range</h2>
-            <TransactionForm
-                range={range}
+            <h2>View Transactions By ACA</h2>
+            <TransactionsByACAForm
+                aca={aca}
                 errors = {errors}
                 onChange={handleChange}
                 onSubmit={handleSubmit}/>
@@ -60,4 +58,4 @@ const ManageTransactionsPage = props => {
         </>
     );
 };
-export default ManageTransactionsPage;
+export default ManageTransactionsByACAPage;

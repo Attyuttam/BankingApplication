@@ -22,7 +22,7 @@ public class AccountTransaction {
     private String transactionID;
 
     @Column(name = "transaction_time_stamp")
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+    //@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private  Date transactionTimeStamp;
 
     @Column(name = "transaction_amount")

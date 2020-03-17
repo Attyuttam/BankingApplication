@@ -35,7 +35,7 @@ public class Account {
     private Double interestRate;
 
     @Column(name = "last_access_time_stamp")
-    //@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private Timestamp lastAccessTimeStamp;
 
     @JsonBackReference

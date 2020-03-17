@@ -16,6 +16,7 @@ function ACAForm(props) {
             <TextInput
                 id="acaBirthDate"
                 label="ACA DOB"
+                type="date"
                 onChange={props.onChange}
                 name="acaBirthDate"
                 value={props.aca.acaBirthDate}

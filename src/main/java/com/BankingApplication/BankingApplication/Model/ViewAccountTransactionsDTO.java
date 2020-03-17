@@ -30,7 +30,7 @@ public class ViewAccountTransactionsDTO implements Serializable {
 
     //account transaction details
     private String transactionID;
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+    //@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private  Date transactionTimeStamp;
     private  Double transactionAmount;
 }

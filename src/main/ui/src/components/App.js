@@ -14,7 +14,10 @@ import ManageACAPage from "./ManageACAPage";
 import ManageAccountsPage from "./ManageAccountsPage";
 import CustomerPage from "./CustomerPage";
 import ManageCustomerPage from "./ManageCustomerPage";
-import ManageTransactionsPage from "./ManageTransactionsPage";
+import ManageTransactionsInRangePage from "./ManageTransactionsInRangePage";
+import ManageTransactionsByCustomerPage from "./ManageTransactionsByCustomerPage";
+import ManageTransactionsByACAPage from "./ManageTransactionsByACAPage";
+import ManageTransactionsByAccountPage from "./ManageTransactionsByAccountPage";
 
 function App() {
     return (
@@ -32,7 +35,10 @@ function App() {
                 <Route path="/manageACA" component={ManageACAPage}/>
                 <Route path="/manageAccount" component={ManageAccountsPage}/>
                 <Route path="/manageCustomer" component={ManageCustomerPage}/>
-                <Route path="/manageTransactions" component={ManageTransactionsPage}/>
+                <Route path="/manageTransactionsInRange" component={ManageTransactionsInRangePage}/>
+                <Route path="/manageTransactionsByCustomer" component={ManageTransactionsByCustomerPage}/>
+                <Route path="/manageTransactionsByACA" component={ManageTransactionsByACAPage}/>
+                <Route path="/manageTransactionsByAccount" component={ManageTransactionsByAccountPage}/>
                 <Redirect from="/about-page" to="about" />
                 <Route component={NotFoundPage} />
             </Switch>

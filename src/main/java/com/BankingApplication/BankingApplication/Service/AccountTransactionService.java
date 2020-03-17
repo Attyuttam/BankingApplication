@@ -82,12 +82,12 @@ public class AccountTransactionService {
         return accountTransactionRepository.save(accountTransaction).getTransactionID();
     }
 
-    public List<AccountTransaction> findAllAccountTransactionByAca(String acaId) {
+    public List<ViewAccountTransactionsDTO> findAllAccountTransactionByAca(String acaId) {
         Optional<ACA> aca = acaRepository.findById(acaId);
-        return aca.map(value -> accountTransactionRepository.findByAca(value)).orElse(null);
+        return getAccountTransactions(aca.map(value -> accountTransactionRepository.findByAca(value)).orElse(null));
     }
 
-    public List<AccountTransaction> findAllAccountTransactionByCustomer(String customerId) {
+    public List<ViewAccountTransactionsDTO> findAllAccountTransactionByCustomer(String customerId) {
         Customer customer = customerRepository.findByCustomerID(customerId);
         List<Account> accounts = accountRepository.findAllByCustomer(customer);
         List<AccountTransaction> accountTransactions = new ArrayList<>();
@@ -96,7 +96,7 @@ public class AccountTransactionService {
             List<AccountTransaction> accountTransactionList = accountTransactionRepository.findAllByAccount(account);
             accountTransactions.addAll(accountTransactionList);
         }
-        return accountTransactions;
+        return getAccountTransactions(accountTransactions);
     }
 
 
@@ -111,6 +111,11 @@ public class AccountTransactionService {
 
         List<AccountTransaction> accountTransactions = new ArrayList<>();
         accountTransactionRepository.findBytransactionTimeStampBetween(startDate, endDate).forEach(accountTransactions::add);
+
+        return getAccountTransactions(accountTransactions);
+    }
+
+    private List<ViewAccountTransactionsDTO> getAccountTransactions(List<AccountTransaction> accountTransactions) {
         List<ViewAccountTransactionsDTO> viewAccountTransactionsDTOList = new ArrayList<>();
         for (AccountTransaction accountTransaction : accountTransactions) {
             viewAccountTransactionsDTOList.add(ViewAccountTransactionsDTO.builder()
@@ -129,10 +134,11 @@ public class AccountTransactionService {
     }
 
     public List<AccountTransaction> findAllAccountTransationForMonth(Integer monthNumber, Integer year) throws ParseException {
-        String pattern = "dd-MM-yyyy";
+        String pattern = "yyyy-MM-dd";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
-        Date startDate = simpleDateFormat.parse("01-"+monthNumber+"-"+year);
+        //Date startDate = simpleDateFormat.parse(monthNumber+"/01/"+year);
+        Date startDate = simpleDateFormat.parse(year+"-"+monthNumber+"-01");
 
         LocalDateTime localStartDate = LocalDateTime.ofInstant(startDate.toInstant(), ZoneId.systemDefault());
         localStartDate = localStartDate.minusDays(1);
@@ -141,7 +147,8 @@ public class AccountTransactionService {
         YearMonth yearMonthObject = YearMonth.of(year, monthNumber);
         int daysInMonth = yearMonthObject.lengthOfMonth();
 
-        Date endDate = simpleDateFormat.parse(daysInMonth+"-"+monthNumber+"-"+year);
+        //Date endDate = simpleDateFormat.parse(monthNumber+"/"+daysInMonth+"/"+year);
+        Date endDate = simpleDateFormat.parse(year+"-"+monthNumber+"-"+daysInMonth);
 
         LocalDateTime localEndDate = LocalDateTime.ofInstant(endDate.toInstant(), ZoneId.systemDefault());
         localEndDate = localEndDate.plusDays(1);
@@ -151,17 +158,17 @@ public class AccountTransactionService {
     }
 
     public List<AccountTransaction> findAllAccountTransationForYear(String year) throws ParseException {
-        String pattern = "dd-MM-yyyy";
+        String pattern = "yyyy-MM-dd";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
-        Date startDate = simpleDateFormat.parse("01-01-"+year);
+        Date startDate = simpleDateFormat.parse(year+"-01-01");
 
         LocalDateTime localStartDate = LocalDateTime.ofInstant(startDate.toInstant(), ZoneId.systemDefault());
         localStartDate = localStartDate.minusDays(1);
 
         startDate = Date.from(localStartDate.atZone(ZoneId.systemDefault()).toInstant());
 
-        Date endDate = simpleDateFormat.parse("31-12-"+year);
+        Date endDate = simpleDateFormat.parse(year+"-12-31");
 
         LocalDateTime localEndDate = LocalDateTime.ofInstant(endDate.toInstant(), ZoneId.systemDefault());
         localEndDate = localEndDate.plusDays(1);
@@ -170,8 +177,8 @@ public class AccountTransactionService {
         return accountTransactionRepository.findBytransactionTimeStampBetween(startDate,endDate);
     }
 
-    public List<AccountTransaction> findAllAccountTransactionByAccount(String accountId) {
+    public List<ViewAccountTransactionsDTO> findAllAccountTransactionByAccount(String accountId) {
         Account account = accountRepository.findAllByAccountID(accountId);
-        return accountTransactionRepository.findAllByAccount(account);
+        return getAccountTransactions(accountTransactionRepository.findAllByAccount(account));
     }
 }

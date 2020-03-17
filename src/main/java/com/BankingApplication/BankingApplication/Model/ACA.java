@@ -24,7 +24,7 @@ public class ACA {
     @Column(name = "aca_name")
     private String acaName;
     @Column(name = "aca_birth_date")
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private Date acaBirthDate;
     @Column(name = "aca_address")
     private String acaAddress;
