@@ -25,5 +25,8 @@ public class ViewAccountDTO implements Serializable {
     private String accountTypeID;
     private  String accountType;
 
+    //customer details
+    private String customerName;
+
     ViewAccountDTO(){}
 }

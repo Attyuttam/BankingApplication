@@ -1,24 +1,28 @@
 package com.BankingApplication.BankingApplication.Service;
 
-import com.BankingApplication.BankingApplication.Model.Account;
-import com.BankingApplication.BankingApplication.Model.AccountTransaction;
-import com.BankingApplication.BankingApplication.Model.ViewAccountDTO;
-import com.BankingApplication.BankingApplication.Model.ViewAllDetailsDTO;
+import com.BankingApplication.BankingApplication.Model.*;
 import com.BankingApplication.BankingApplication.Repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.View;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
+
+import static java.lang.Double.parseDouble;
 
 @Service
 @Slf4j
 public class AccountService {
     @Autowired
     private AccountRepository accountRepository;
+    @Autowired
+    private CustomerService customerService;
+    @Autowired
+    private AccountTypeService accountTypeService;
+
     public List<Account> findAll() {
         List<Account> accounts = new ArrayList<>();
         // accountRepository.findAll().forEach(e -> Logger.getAnonymousLogger().info(e.getAccountID()));
@@ -34,8 +38,19 @@ public class AccountService {
         accountRepository.deleteById(accountId);
     }
 
-    public Account save(Account account) {
-        return accountRepository.save(account);
+    public ViewAccountDTO save(saveAccountDTO accountDTO) {
+        Customer customer = customerService.findByCustomerID(accountDTO.getCustomer());
+        AccountType accountType = accountTypeService.findByAccountType(accountDTO.getAccountType());
+        Account account = accountRepository.save(new Account(parseDouble(accountDTO.getAccountBalance()),accountType,parseDouble(accountDTO.getInterestRate()),new Timestamp(new Date().getTime()),customer));
+        return ViewAccountDTO.builder()
+                .accountBalance(account.getAccountBalance())
+                .accountType(account.getAccountTypeID().getAccountType())
+                .accountTypeID(account.getAccountTypeID().getAccountTypeID())
+                .lastAccessTimeStamp(account.getLastAccessTimeStamp())
+                .interestRate(account.getInterestRate())
+                .accountID(account.getAccountID())
+                .customerName(account.getCustomer().getCustomerName())
+                .build();
     }
 
     public List<ViewAccountDTO> findAccounts() {
@@ -50,8 +65,13 @@ public class AccountService {
                     .lastAccessTimeStamp(account.getLastAccessTimeStamp())
                     .accountTypeID(account.getAccountTypeID().getAccountTypeID())
                     .accountType(account.getAccountTypeID().getAccountType())
+                    .customerName(account.getCustomer().getCustomerName())
                     .build());
         }
         return viewAccountDTOList;
+    }
+
+    public Account findByAccountID(String account) {
+        return accountRepository.findAllByAccountID(account);
     }
 }

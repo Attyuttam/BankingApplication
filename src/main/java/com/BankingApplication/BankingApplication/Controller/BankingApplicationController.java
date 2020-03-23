@@ -7,16 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.io.IOException;
-import java.sql.Timestamp;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import static java.lang.Double.parseDouble;
 
 @RestController
 @Slf4j
@@ -67,17 +60,7 @@ public class BankingApplicationController {
     }
     @PostMapping("/addAccount")
     public ViewAccountDTO createAccount(@RequestBody saveAccountDTO accountDTO){
-        Customer customer = customerService.findByCustomerID(accountDTO.getCustomer());
-        AccountType accountType = accountTypeService.findByAccountType(accountDTO.getAccountType());
-        Account account = accountService.save(new Account(parseDouble(accountDTO.getAccountBalance()),accountType,parseDouble(accountDTO.getInterestRate()),new Timestamp(new Date().getTime()),customer));
-        return ViewAccountDTO.builder()
-                .accountBalance(account.getAccountBalance())
-                .accountType(account.getAccountTypeID().getAccountType())
-                .accountTypeID(account.getAccountTypeID().getAccountTypeID())
-                .lastAccessTimeStamp(account.getLastAccessTimeStamp())
-                .interestRate(account.getInterestRate())
-                .accountID(account.getAccountID())
-                .build();
+       return accountService.save(accountDTO);
     }
     @RequestMapping("/allAccounts")
     public List<ViewAccountDTO> getAccounts(){return accountService.findAccounts();}
@@ -133,7 +116,7 @@ public class BankingApplicationController {
         accountTransactionService.deleteById(accountTransactionId);
     }
     @PostMapping("/addTransaction")
-    public String createTransaction(@RequestBody AccountTransaction accountTransaction){
+    public ViewAccountTransactionsDTO createTransaction(@RequestBody saveTransactionDTO accountTransaction){
         return accountTransactionService.save(accountTransaction);
     }
 

@@ -5,8 +5,8 @@ import {toast} from "react-toastify";
 import ACAForm from "./ACAForm";
 
 //TODO:
-// 1. need to add validation on form so that the date is in the format DD-MM-YYYY
-// 2. need to auto generate the aca ID
+// 1. need to add validation on form so that the date is in the format DD-MM-YYYY (DONE)
+// 2. need to auto generate the aca ID (DONE)
 
 const ManageACAPage = props => {
     const [errors, setErrors] = useState({});

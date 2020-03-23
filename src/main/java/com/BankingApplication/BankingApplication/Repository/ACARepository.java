@@ -5,4 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ACARepository extends CrudRepository<ACA,String> {}
+public interface ACARepository extends CrudRepository<ACA,String> {
+    ACA findAllByAcaID(String aca);
+}

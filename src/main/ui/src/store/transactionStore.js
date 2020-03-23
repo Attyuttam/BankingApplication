@@ -21,7 +21,11 @@ class TransactionStore extends EventEmitter{
 }
 const store = new TransactionStore();
 Dispatcher.register(action => {
-    if(action.actionType === actionTypes.LOAD_TRANSACTIONS){
+    if(action.actionType === actionTypes.CREATE_TRANSACTION){
+        _transactions.push(action.transaction);
+        store.emitChange();
+    }
+    else if(action.actionType === actionTypes.LOAD_TRANSACTIONS){
         _transactions = action.transactions;
         store.emitChange();
     }
