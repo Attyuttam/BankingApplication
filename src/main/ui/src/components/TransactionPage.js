@@ -39,6 +39,10 @@ function TransactionPage() {
             <Link  className="btn btn-primary" to="/manageTransactionsByAccount">
                 View Transactions by Account
             </Link>
+            &nbsp;
+            <Link  className="btn btn-primary" to="/manageTransaction">
+                Add Transaction
+            </Link>
             <TransactionList transactions={transactions} />
         </>
     );

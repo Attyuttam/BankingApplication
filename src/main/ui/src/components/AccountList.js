@@ -12,6 +12,7 @@ function AccountList(props){
                     <th>last access time</th>
                     <th>Account Type ID</th>
                     <th>Account Type</th>
+                    <th>Customer</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,6 +26,7 @@ function AccountList(props){
                             <td>{account.lastAccessTimeStamp}</td>
                             <td>{account.accountTypeID}</td>
                             <td>{account.accountType}</td>
+                            <td>{account.customerName}</td>
                         </tr>
                     );
                 })}

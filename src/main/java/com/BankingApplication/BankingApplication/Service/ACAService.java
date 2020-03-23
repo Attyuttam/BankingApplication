@@ -47,4 +47,7 @@ public class ACAService {
         }
 
 
+    public ACA findByAcaID(String aca) {
+            return  acaRepository.findAllByAcaID(aca);
+    }
 }

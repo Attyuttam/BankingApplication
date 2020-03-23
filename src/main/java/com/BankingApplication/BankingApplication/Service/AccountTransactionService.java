@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -19,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import static java.lang.Double.parseDouble;
 
 @Service
 @Slf4j
@@ -31,6 +34,10 @@ public class AccountTransactionService {
     private CustomerRepository customerRepository;
     @Autowired
     private AccountRepository accountRepository;
+    @Autowired
+    private AccountService accountService;
+    @Autowired
+    private ACAService acaService;
 
     public List<AccountTransaction> findAll() {
         List<AccountTransaction> accountTransactions = new ArrayList<>();
@@ -67,7 +74,6 @@ public class AccountTransactionService {
                     .transactionTimeStamp(accountTransaction.getTransactionTimeStamp())
                     .build());
         }
-        log.info(viewAllDetailsDTOList.get(0)+"YE RAHA LIST");
         return viewAllDetailsDTOList;
     }
     public Long count() {
@@ -78,8 +84,21 @@ public class AccountTransactionService {
         accountTransactionRepository.deleteById(accountTransactionId);
     }
 
-    public String save(AccountTransaction accountTransaction) {
-        return accountTransactionRepository.save(accountTransaction).getTransactionID();
+    public ViewAccountTransactionsDTO save(saveTransactionDTO accountTransactionDTO) {
+        Account account = accountService.findByAccountID(accountTransactionDTO.getAccount());
+        ACA aca = acaService.findByAcaID(accountTransactionDTO.getAca());
+        AccountTransaction transaction = accountTransactionRepository.save(new AccountTransaction(new Date(),parseDouble(accountTransactionDTO.getTransactionAmount()),account,aca));
+        return ViewAccountTransactionsDTO.builder()
+                .acaID(aca.getAcaID())
+                .acaName(aca.getAcaName())
+                .customerID(account.getCustomer().getCustomerID())
+                .customerName(account.getCustomer().getCustomerName())
+                .accountID(account.getAccountID())
+                .accountType(account.getAccountTypeID().getAccountType())
+                .transactionAmount(transaction.getTransactionAmount())
+                .transactionTimeStamp(transaction.getTransactionTimeStamp())
+                .transactionID(transaction.getTransactionID())
+                .build();
     }
 
     public List<ViewAccountTransactionsDTO> findAllAccountTransactionByAca(String acaId) {

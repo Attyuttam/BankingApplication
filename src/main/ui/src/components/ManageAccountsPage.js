@@ -24,7 +24,7 @@ import accountStore from "../store/accountStore";
 const ManageAccountsPage = props => {
     const [accounts,setAccounts] = useState({});
     const [errors,setErrors] = useState({});
-    const [account, setAccount] =useState({
+    const [account, setAccount] = useState({
         accountBalance: "",
         accountType: "",
         interestRate: "",

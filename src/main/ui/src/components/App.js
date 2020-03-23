@@ -18,6 +18,7 @@ import ManageTransactionsInRangePage from "./ManageTransactionsInRangePage";
 import ManageTransactionsByCustomerPage from "./ManageTransactionsByCustomerPage";
 import ManageTransactionsByACAPage from "./ManageTransactionsByACAPage";
 import ManageTransactionsByAccountPage from "./ManageTransactionsByAccountPage";
+import ManageTransactionsPage from "./ManageTransactionsPage";
 
 function App() {
     return (
@@ -32,6 +33,7 @@ function App() {
                 <Route path="/customers" component={CustomerPage}/>
                 <Route path="/accounts" component={AccountPage}/>
                 <Route path="/transactions" component={TransactionPage}/>
+                <Route path="/manageTransaction" component={ManageTransactionsPage}/>
                 <Route path="/manageACA" component={ManageACAPage}/>
                 <Route path="/manageAccount" component={ManageAccountsPage}/>
                 <Route path="/manageCustomer" component={ManageCustomerPage}/>

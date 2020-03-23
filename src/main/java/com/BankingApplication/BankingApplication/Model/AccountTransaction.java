@@ -47,6 +47,4 @@ public class AccountTransaction {
         this.account = account;
         this.aca = aca;
     }
-
-
 }
