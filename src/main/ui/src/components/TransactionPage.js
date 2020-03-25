@@ -5,11 +5,10 @@ import TransactionList from '../components/TransactionList';
 import {Link} from "react-router-dom";
 
 function TransactionPage() {
-
     const [transactions, setTransactions] = useState(detailedAccountsStore.getDetailedAccounts());
     //console.log(transactions);
     useEffect(() => {
-        ////////xcvxcv.log("HIT HERE"+transactions);
+        //log("HIT HERE"+transactions);
         detailedAccountsStore.addChangeListener(onChange);
         if (detailedAccountsStore.getDetailedAccounts.length === 0) {loadDetailedAccounts();}
         return () => detailedAccountsStore.removeChangeListener(onChange); // cleanup on unmount

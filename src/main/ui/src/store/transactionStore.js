@@ -18,6 +18,12 @@ class TransactionStore extends EventEmitter{
     getTransactions(){
         return _transactions;
     }
+
+    getTransactionBySlug(slug) {
+        const test =_transactions.find(transaction => transaction.transactionID === slug);
+        //console.log("TR FROM SLUG: "+JSON.stringify(test));
+        return test;
+    }
 }
 const store = new TransactionStore();
 Dispatcher.register(action => {
@@ -26,6 +32,10 @@ Dispatcher.register(action => {
         store.emitChange();
     }
     else if(action.actionType === actionTypes.LOAD_TRANSACTIONS){
+        _transactions = action.transactions;
+        store.emitChange();
+    }
+    else if(action.actionType === actionTypes.LOAD_TRANSACTIONS_IN_RANGE){
         _transactions = action.transactions;
         store.emitChange();
     }
@@ -40,6 +50,11 @@ Dispatcher.register(action => {
     else if(action.actionType === actionTypes.LOAD_TRANSACTIONS_BY_ACCOUNT){
         _transactions = action.transactions;
         store.emitChange();
+    }
+    else if(action.actionType === actionTypes.UPDATE_TRANSACTION){
+        _transactions = _transactions.map(transaction =>
+            transaction.transactionID === action.transaction.transactionID? action.transaction : transaction
+        );
     }
 });
 export default store;

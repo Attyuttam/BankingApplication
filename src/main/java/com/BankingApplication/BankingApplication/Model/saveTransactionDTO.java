@@ -10,7 +10,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class saveTransactionDTO {
+    public String transactionID;
     public String transactionAmount;
-    public String account;
-    public String aca;
+    public String accountID;
+    public String acaID;
 }

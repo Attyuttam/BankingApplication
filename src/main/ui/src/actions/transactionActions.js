@@ -4,9 +4,10 @@ import actionTypes from "./actionTypes";
 import * as accountApi from "../api/accountApi";
 
 export function saveTransaction(transaction){
+    //console.log("TO SAVE TR: "+JSON.stringify(transaction));
     return transactionApi.saveTransaction(transaction).then(savedTransaction => {
         dispatcher.dispatch({
-            actionType: actionTypes.CREATE_TRANSACTION,
+            actionType: transaction.transactionID ? actionTypes.UPDATE_TRANSACTION: actionTypes.CREATE_TRANSACTION,
             transaction: savedTransaction
         });
     });
@@ -29,11 +30,19 @@ export function loadTransactionsByACA(acaID) {
     });
 }
 
-
-export function loadTransactionsByRange(startDate, endDate) {
-    return transactionApi.getTransactions(startDate,endDate).then(transactions => {
+export function loadTransactions() {
+    return transactionApi.getTransactions().then(transactions => {
         dispatcher.dispatch({
             actionType: actionTypes.LOAD_TRANSACTIONS,
+            transactions: transactions
+        });
+    });
+}
+
+export function loadTransactionsByRange(startDate, endDate) {
+    return transactionApi.getTransactionsByRange(startDate,endDate).then(transactions => {
+        dispatcher.dispatch({
+            actionType: actionTypes.LOAD_TRANSACTIONS_IN_RANGE,
             transactions: transactions
         });
     });

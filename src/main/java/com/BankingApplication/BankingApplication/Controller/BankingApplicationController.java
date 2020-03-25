@@ -72,7 +72,7 @@ public class BankingApplicationController {
     }
 
     @GetMapping("/accountTransactions")
-    public List<AccountTransaction> getAllAccountTransactions() {
+    public List<ViewAccountTransactionsDTO> getAllAccountTransactions() {
         return accountTransactionService.findAll();
     }
     @GetMapping("/getTransactionsByACA/{acaId}")
