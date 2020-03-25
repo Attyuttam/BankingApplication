@@ -18,6 +18,13 @@ class AccountStore extends EventEmitter{
     getAccounts(){
         return _accounts;
     }
+
+    getAccountBySlug(slug) {
+
+        const test =  _accounts.find(account => account.accountID === slug);
+        console.log("ac slug: "+JSON.stringify(test));
+        return test;
+    }
 }
 const store = new AccountStore();
 Dispatcher.register(action => {
@@ -27,6 +34,10 @@ Dispatcher.register(action => {
     }
     else if(action.actionType === actionTypes.CREATE_ACCOUNT){
         _accounts.push(action.account);
+        store.emitChange();
+    }
+    else if(action.actionType === actionTypes.UPDATE_ACCOUNT){
+        _accounts = _accounts.map(account => account.accountID === action.account.accountID?action.account: account);
         store.emitChange();
     }
 });

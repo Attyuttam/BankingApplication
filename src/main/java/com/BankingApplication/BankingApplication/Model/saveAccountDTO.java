@@ -13,5 +13,5 @@ public class saveAccountDTO {
     private String accountBalance;
     private String accountType;
     private String interestRate;
-    private String customer;
+    private String customerID;
 }

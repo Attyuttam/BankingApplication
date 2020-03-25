@@ -6,7 +6,7 @@ export function saveACA(aca) {
     return acaApi.saveACA(aca).then(savedACA => {
         // Hey dispatcher, go tell all the stores that a ACA was just created.
         dispatcher.dispatch({
-            actionType: actionTypes.CREATE_ACA,
+            actionType: aca.acaID ? actionTypes.UPDATE_ACA : actionTypes.CREATE_ACA,
             aca: savedACA
         });
     });

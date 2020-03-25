@@ -5,15 +5,18 @@ import TransactionList from '../components/TransactionList';
 import {Link} from "react-router-dom";
 
 function TransactionPage() {
-    const [transactions, setTransactions] = useState(detailedAccountsStore.getDetailedAccounts());
 
+    const [transactions, setTransactions] = useState(detailedAccountsStore.getDetailedAccounts());
+    console.log(transactions);
     useEffect(() => {
+        console.log("HIT HERE"+transactions);
         detailedAccountsStore.addChangeListener(onChange);
-        if (detailedAccountsStore.getDetailedAccounts.length === 0) loadDetailedAccounts();
+        if (detailedAccountsStore.getDetailedAccounts.length === 0) {console.log("HIT IN IF"+transactions);loadDetailedAccounts();}
         return () => detailedAccountsStore.removeChangeListener(onChange); // cleanup on unmount
     }, []);
 
     function onChange() {
+        console.log("HIT IN ON CHANGE"+transactions);
         setTransactions(detailedAccountsStore.getDetailedAccounts());
     }
 

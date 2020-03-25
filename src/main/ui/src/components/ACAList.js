@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 function ACAList(props){
     return(
@@ -22,7 +23,7 @@ function ACAList(props){
                            &nbsp;
                         </td>
                         <td>{aca.acaID}</td>
-                        <td>{aca.acaName}</td>
+                        <td><Link to={"/manageACA/" + aca.acaID}>{aca.acaName}</Link></td>
                         <td>{aca.acaBirthDate}</td>
                         <td>{aca.acaAddress}</td>
                         <td>{aca.acaPhoneNum}</td>

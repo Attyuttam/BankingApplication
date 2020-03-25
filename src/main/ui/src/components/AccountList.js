@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 function AccountList(props){
     return(
@@ -20,7 +21,7 @@ function AccountList(props){
                     return(
                         <tr key={account.accountID}>
                             <td>&nbsp;</td>
-                            <td>{account.accountID}</td>
+                            <td><Link to={"/manageAccount/"+account.accountID}>{account.accountID}</Link></td>
                             <td>{account.accountBalance}</td>
                             <td>{account.interestRate}</td>
                             <td>{account.lastAccessTimeStamp}</td>

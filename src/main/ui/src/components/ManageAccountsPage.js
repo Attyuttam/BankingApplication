@@ -3,6 +3,8 @@ import {toast} from "react-toastify";
 import * as accountActions from "../actions/accountActions";
 import AccountForm from "./AccountForm";
 import accountStore from "../store/accountStore";
+import {loadAcas} from "../actions/acaActions";
+import acaStore from "../store/acaStore";
 
 //TODO:
 // 1. need to auto generate the lastAccessTimeStamp to the currentTimeStamp
@@ -32,6 +34,9 @@ const ManageAccountsPage = props => {
     });
     useEffect(() => {
         accountStore.addChangeListener(onChange);
+        const slug = props.match.params.slug;
+        if(accounts.length === 0)loadAcas();
+        else if(slug)setAccount(accountStore.getAccountBySlug(slug));
         return () => {accountStore.removeChangeListener(onChange);}
     }, [accounts.length]);
 

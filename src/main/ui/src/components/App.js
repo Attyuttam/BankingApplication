@@ -34,7 +34,9 @@ function App() {
                 <Route path="/accounts" component={AccountPage}/>
                 <Route path="/transactions" component={TransactionPage}/>
                 <Route path="/manageTransaction" component={ManageTransactionsPage}/>
+                <Route path="/manageACA/:slug" component={ManageACAPage} />
                 <Route path="/manageACA" component={ManageACAPage}/>
+                <Route path="/manageAccount/:slug" component={ManageAccountsPage}/>
                 <Route path="/manageAccount" component={ManageAccountsPage}/>
                 <Route path="/manageCustomer" component={ManageCustomerPage}/>
                 <Route path="/manageTransactionsInRange" component={ManageTransactionsInRangePage}/>
