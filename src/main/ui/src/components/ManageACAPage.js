@@ -4,6 +4,7 @@ import acaStore from "../store/acaStore";
 import {toast} from "react-toastify";
 import ACAForm from "./ACAForm";
 import {loadAcas} from "../actions/acaActions";
+import {getAcas} from "../api/acaApi";
 
 //TODO:
 // 1. need to add validation on form so that the date is in the format DD-MM-YYYY (DONE)
@@ -11,7 +12,7 @@ import {loadAcas} from "../actions/acaActions";
 
 const ManageACAPage = props => {
     const [errors, setErrors] = useState({});
-    const [acas,setAcas] = useState({});
+    const [acas,setAcas] = useState(acaStore.getAcas());
     const [aca, setAca] = useState({
         acaName:"",
         acaBirthDate:"",

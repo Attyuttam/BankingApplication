@@ -3,7 +3,6 @@ import {Link} from "react-router-dom";
 //import PropTypes from "prop-types";
 
 function TransactionList(props) {
-    let index = 1;
     return (
         <table className="table">
             <thead>
@@ -23,9 +22,9 @@ function TransactionList(props) {
             <tbody>
             {props.transactions.map(transaction => {
                 return (
-                    <tr key={index}>
+                    <tr key={transaction.transactionID}>
                         <td>&nbsp;</td>
-                        <td>{transaction.transactionID}</td>
+                        <td><Link to={"/manageTransaction/"+transaction.transactionID}>{transaction.transactionID}</Link></td>
                         <td>{transaction.transactionAmount}</td>
                         <td>{transaction.transactionTimeStamp}</td>
                         <td>{transaction.acaID}</td>
@@ -36,7 +35,6 @@ function TransactionList(props) {
                         <td>{transaction.accountType}</td>
                     </tr>
                 );
-                index=index+1;
             })}
             </tbody>
         </table>

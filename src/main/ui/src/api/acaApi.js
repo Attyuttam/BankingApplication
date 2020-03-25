@@ -2,6 +2,7 @@ import {handleError, handleResponse} from "./apiUtils";
 
 
 export function saveACA(aca) {
+    //console.log("TO SAVE ACA: "+JSON.stringify(aca));
     return fetch("http://localhost:8080/addAca", {
         method: "POST", // POST for create, PUT to update when id already exists.
         headers: { "content-type": "application/json" },

@@ -17,7 +17,7 @@ function AccountPage(){
     },[]);
 
     function onChange(){
-        console.log("HIT HERE");
+        //console.log("HIT HERE");
         setAccounts(accountStore.getAccounts());
     }
     return(

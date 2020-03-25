@@ -22,7 +22,7 @@ class AccountStore extends EventEmitter{
     getAccountBySlug(slug) {
 
         const test =  _accounts.find(account => account.accountID === slug);
-        console.log("ac slug: "+JSON.stringify(test));
+        // console.log("ac slug: "+JSON.stringify(test));
         return test;
     }
 }

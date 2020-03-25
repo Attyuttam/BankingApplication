@@ -1,9 +1,9 @@
 import {handleError, handleResponse} from "./apiUtils";
 
 export function saveTransaction(transaction) {
-    console.log(JSON.stringify({
+    /*console.log(JSON.stringify({
         ...transaction
-    }));
+    }));*/
     return fetch("http://localhost:8080/addTransaction", {
         method: "POST", // POST for create, PUT to update when id already exists.
         headers: { "content-type": "application/json" },

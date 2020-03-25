@@ -3,6 +3,7 @@ import TextInput from "./common/textInput";
 //import PropTypes from "prop-types";
 
 function ACAForm(props) {
+    //console.log("ACA PROPS: "+JSON.stringify(props.aca));
     return (
         <form onSubmit={props.onSubmit}>
             <TextInput

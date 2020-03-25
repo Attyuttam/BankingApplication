@@ -5,6 +5,7 @@ import AccountForm from "./AccountForm";
 import accountStore from "../store/accountStore";
 import {loadAcas} from "../actions/acaActions";
 import acaStore from "../store/acaStore";
+import {loadAccounts} from "../actions/accountActions";
 
 //TODO:
 // 1. need to auto generate the lastAccessTimeStamp to the currentTimeStamp
@@ -24,21 +25,21 @@ import acaStore from "../store/acaStore";
 //          and at the back end, we will find the savings type object and customer object corresponding to the sent
 //          savings type and customer object respectively and save the account object. (sounds a bit lengthier but do able)
 const ManageAccountsPage = props => {
-    const [accounts,setAccounts] = useState({});
+    const [accounts,setAccounts] = useState(accountStore.getAccounts());
     const [errors,setErrors] = useState({});
     const [account, setAccount] = useState({
         accountBalance: "",
         accountType: "",
         interestRate: "",
-        customer: ""
+        customerID: ""
     });
     useEffect(() => {
         accountStore.addChangeListener(onChange);
         const slug = props.match.params.slug;
-        if(accounts.length === 0)loadAcas();
+        if(accounts.length === 0)loadAccounts();
         else if(slug)setAccount(accountStore.getAccountBySlug(slug));
         return () => {accountStore.removeChangeListener(onChange);}
-    }, [accounts.length]);
+    }, [accounts.length,props.match.params.slug]);
 
     function onChange() {
         setAccounts(accountStore.getAccounts());
@@ -54,7 +55,7 @@ const ManageAccountsPage = props => {
         if (!account.accountBalance) _errors.accountBalance = "Account balance is required";
         if (!account.accountType) _errors.accountType = "Account type is required";
         if (!account.interestRate) _errors.interestRate = "Interest rate is required";
-        if (!account.customer) _errors.customer = "Customer is required";
+        if (!account.customerID) _errors.customerID = "Customer is required";
 
         setErrors(_errors);
         // Form is valid if the errors object has no properties
