@@ -24,6 +24,7 @@ function AccountPage(){
     return(
         <>
             <h2>Account Details</h2>
+            <p style={{color: "red"}}>Please click on the Account ID to edit that Account</p>
             <Link className="btn btn-primary" to="/manageAccount">
                 Add Account
             </Link>

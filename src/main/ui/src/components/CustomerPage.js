@@ -21,6 +21,7 @@ function CustomerPage(){
     return (
         <>
             <h2 >Customer details</h2>
+            <p style={{color: "red"}}>Please click on the Customer name to edit that Customer</p>
             <Link className="btn btn-primary" to="/manageCustomer">
                 Add Customer
             </Link>

@@ -66,6 +66,7 @@ const ManageTransactionsInRangePage = props => {
                 filename="TransactionInRange_Table"
                 sheet="tablexls"
                 buttonText="Download as XLS"/>
+            <p style={{color: "red"}}>Please click on the Transaction ID to edit that Transaction</p>
             <TransactionList transactions={transactions} />
         </>
     );

@@ -63,6 +63,7 @@ const ManageTransactionsByACAPage = props => {
                 filename="TransactionByACA_Table"
                 sheet="tablexls"
                 buttonText="Download as XLS"/>
+            <p style={{color: "red"}}>Please click on the Transaction ID to edit that Transaction</p>
             <TransactionList transactions={transactions} />
         </>
     );

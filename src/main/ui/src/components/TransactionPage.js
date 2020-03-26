@@ -27,6 +27,7 @@ function TransactionPage() {
     return (
         <>
             <h2 >Transaction details</h2>
+            <p style={{color: "red"}}>Please click on the Transaction ID to edit that Transaction</p>
             <Link  className="btn btn-primary" to="/manageTransactionsInRange">
                 View Transactions in range
             </Link>

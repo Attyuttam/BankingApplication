@@ -20,6 +20,7 @@ function ACAPage() {
     return(
         <>
             <h2>ACA Details</h2>
+            <p style={{color: "red"}}>Please click on the ACA name to edit that ACA</p>
             <Link className="btn btn-primary" to="/manageACA">
                 Add ACA
             </Link>
