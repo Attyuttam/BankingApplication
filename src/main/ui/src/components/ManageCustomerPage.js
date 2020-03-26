@@ -3,6 +3,7 @@ import customerStore from "../store/customerStore";
 import * as customerActions from "../actions/customerActions";
 import {toast} from "react-toastify";
 import CustomerForm from "./CustomerForm";
+import {loadCustomers} from "../actions/customerActions";
 
 const ManageCustomerPage = props => {
     const [customers, setCustomers] = useState({});
@@ -17,8 +18,11 @@ const ManageCustomerPage = props => {
     });
     useEffect(() => {
         customerStore.addChangeListener(onChange);
+        const slug = props.match.params.slug;
+        if(customers.length === 0)loadCustomers();
+        else if (slug) setCustomer(customerStore.getCustomerBySlug(slug));
         return () => customerStore.removeChangeListener(onChange);
-    }, [customers.length]);
+    }, [customers.length,props.match.params.slug]);
 
     function onChange() {
         setCustomers(customerStore.getCustomers());

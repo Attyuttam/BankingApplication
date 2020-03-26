@@ -3,6 +3,7 @@ import detailedAccountsStore from "../store/detailedAccountsStore";
 import { loadDetailedAccounts } from "../actions/DetailedAccountActions";
 import TransactionList from '../components/TransactionList';
 import {Link} from "react-router-dom";
+import ReactHTMLTableToExcel from "react-html-table-to-excel";
 
 function TransactionPage() {
     const [transactions, setTransactions] = useState(detailedAccountsStore.getDetailedAccounts());
@@ -45,6 +46,14 @@ function TransactionPage() {
             <Link  className="btn btn-primary" to="/manageTransaction">
                 Add Transaction
             </Link>
+            &nbsp;
+            <ReactHTMLTableToExcel
+                id="transaction-table-xls-button"
+                className="btn btn-primary"
+                table="transactionTable"
+                filename="AllTransactions_Table"
+                sheet="tablexls"
+                buttonText="Download as XLS"/>
             <TransactionList transactions={transactions} />
         </>
     );

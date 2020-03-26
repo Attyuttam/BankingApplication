@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 
 function TransactionList(props) {
     return (
-        <table className="table">
+        <table className="table" id="transactionTable">
             <thead>
             <tr>
                 <th>&nbsp;</th>

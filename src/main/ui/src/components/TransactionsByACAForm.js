@@ -41,7 +41,6 @@ function TransactionsByACAForm(props) {
                     <div className="alert alert-danger">{props.errors.customerID}</div>
                 )}
             </div>
-
             <input type="submit" value="View" className="btn btn-primary" />
         </form>
     );

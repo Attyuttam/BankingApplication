@@ -4,6 +4,7 @@ import transactionStore from "../store/transactionStore";
 import {toast} from "react-toastify";
 import TransactionsInRangeForm from "./TransactionsInRangeForm";
 import TransactionList from "./TransactionList";
+import ReactHTMLTableToExcel from "react-html-table-to-excel";
 
 //TODO:
 // 1. need to add validation on form so that the date is in the format DD-MM-YYYY
@@ -57,6 +58,14 @@ const ManageTransactionsInRangePage = props => {
                 errors = {errors}
                 onChange={handleChange}
                 onSubmit={handleSubmit}/>
+            <br/>
+            <ReactHTMLTableToExcel
+                id="transaction-table-xls-button"
+                className="btn btn-primary"
+                table="transactionTable"
+                filename="TransactionInRange_Table"
+                sheet="tablexls"
+                buttonText="Download as XLS"/>
             <TransactionList transactions={transactions} />
         </>
     );

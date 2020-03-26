@@ -3,6 +3,7 @@ import accountStore from '../store/accountStore';
 import AccountList from '../components/AccountList';
 import {loadAccounts} from "../actions/accountActions";
 import {Link} from "react-router-dom";
+import ReactHTMLTableToExcel from "react-html-table-to-excel";
 
 function AccountPage(){
     const [accounts,setAccounts] = useState(accountStore.getAccounts());
@@ -26,6 +27,14 @@ function AccountPage(){
             <Link className="btn btn-primary" to="/manageAccount">
                 Add Account
             </Link>
+            &nbsp;
+            <ReactHTMLTableToExcel
+                id="account-table-xls-button"
+                className="btn btn-primary"
+                table="accountTable"
+                filename="Account_Table"
+                sheet="tablexls"
+                buttonText="Download as XLS"/>
             <AccountList accounts={accounts}/>
         </>
     );

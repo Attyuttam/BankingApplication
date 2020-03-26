@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 
 function AccountList(props){
     return(
-        <table className="table">
+        <table className="table" id="accountTable">
             <thead>
                 <tr>
                     <th>&nbsp;</th>

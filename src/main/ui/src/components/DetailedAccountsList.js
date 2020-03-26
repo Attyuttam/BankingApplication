@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 
 function DetailedAccountsList(props) {
   return (
-    <table className="table">
+    <table className="table" id="detailedAccountsTable">
         <thead>
             <tr>
                 <th>&nbsp;</th>
