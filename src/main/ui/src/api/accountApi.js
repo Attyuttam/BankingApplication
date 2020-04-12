@@ -6,7 +6,7 @@ export function saveAccount(account) {
     }));*/
     return fetch("http://localhost:8080/addAccount", {
         method: "POST", // POST for create, PUT to update when id already exists.
-        headers: { "content-type": "application/json" },
+        headers: { "content-type": "application/json",'authorization': 'Bearer ' + sessionStorage.getItem("token") },
         body: JSON.stringify({
             ...account
         })
@@ -15,7 +15,10 @@ export function saveAccount(account) {
         .catch(handleError);
 }
 export function getAccounts(){
-    return fetch("http://localhost:8080/allAccounts")
+    return fetch("http://localhost:8080/allAccounts",{
+        method: "GET",
+        headers: {'authorization': 'Bearer ' + sessionStorage.getItem("token")}
+    })
         .then(handleResponse)
         .catch(handleError)
 }
