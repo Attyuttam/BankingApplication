@@ -1,8 +1,9 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 function CustomerList(props){
     return(
-        <table className="table">
+        <table className="table" id="customerTable">
             <thead>
             <tr>
                 <th>&nbsp;</th>
@@ -21,7 +22,7 @@ function CustomerList(props){
                     <tr key={customer.customerID}>
                         <td>&nbsp;</td>
                         <td>{customer.customerID}</td>
-                        <td>{customer.customerName}</td>
+                        <td><Link to={"/manageCustomer/"+customer.customerID}>{customer.customerName}</Link></td>
                         <td>{customer.dob}</td>
                         <td>{customer.guardianName}</td>
                         <td>{customer.fatherName}</td>

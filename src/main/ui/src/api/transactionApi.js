@@ -1,9 +1,11 @@
 import {handleError, handleResponse} from "./apiUtils";
 
+
+
 export function saveTransaction(transaction) {
-    console.log(JSON.stringify({
+    /*console.log(JSON.stringify({
         ...transaction
-    }));
+    }));*/
     return fetch("http://localhost:8080/addTransaction", {
         method: "POST", // POST for create, PUT to update when id already exists.
         headers: { "content-type": "application/json" },
@@ -16,6 +18,12 @@ export function saveTransaction(transaction) {
 }
 
 
+export function getTransactions() {
+    const url = "http://localhost:8080/accountTransactions";
+    return fetch(url)
+        .then(handleResponse)
+        .catch(handleError)
+}
 export function getTransactionsByAccount(accountID) {
     const url = "http://localhost:8080/getTransactionsByAccount/"+accountID;
     return fetch(url)
@@ -40,7 +48,7 @@ export function getTransactionsByCustomer(customerID) {
 }
 
 
-export function getTransactions(startDate, endDate){
+export function getTransactionsByRange(startDate, endDate){
     const url = "http://localhost:8080/getTransactionsInRange/From/"+startDate+"/To/"+endDate;
     return fetch(url)
         .then(handleResponse)

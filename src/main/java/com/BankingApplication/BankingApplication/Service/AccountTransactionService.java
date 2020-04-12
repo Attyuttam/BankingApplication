@@ -39,10 +39,10 @@ public class AccountTransactionService {
     @Autowired
     private ACAService acaService;
 
-    public List<AccountTransaction> findAll() {
+    public List<ViewAccountTransactionsDTO> findAll() {
         List<AccountTransaction> accountTransactions = new ArrayList<>();
         accountTransactionRepository.findAll().forEach(accountTransactions::add);
-        return accountTransactions;
+        return getAccountTransactions(accountTransactions);
     }
     public List<ViewAllDetailsDTO> findAllDetailedAccountTransactions(){
         List<AccountTransaction> accountTransactions = new ArrayList<>();
@@ -85,9 +85,19 @@ public class AccountTransactionService {
     }
 
     public ViewAccountTransactionsDTO save(saveTransactionDTO accountTransactionDTO) {
-        Account account = accountService.findByAccountID(accountTransactionDTO.getAccount());
-        ACA aca = acaService.findByAcaID(accountTransactionDTO.getAca());
-        AccountTransaction transaction = accountTransactionRepository.save(new AccountTransaction(new Date(),parseDouble(accountTransactionDTO.getTransactionAmount()),account,aca));
+        Account account = accountService.findByAccountID(accountTransactionDTO.getAccountID());
+        ACA aca = acaService.findByAcaID(accountTransactionDTO.getAcaID());
+        AccountTransaction transaction = null;
+        if(accountTransactionDTO.getTransactionID()!=null){
+            transaction = accountTransactionRepository.findAllByTransactionID(accountTransactionDTO.getTransactionID());
+            transaction.setTransactionAmount(Double.valueOf(accountTransactionDTO.getTransactionAmount()));
+            transaction.setAccount(account);
+            transaction.setAca(aca);
+        }
+        else{
+            transaction = accountTransactionRepository.save(new AccountTransaction(new Date(),parseDouble(accountTransactionDTO.getTransactionAmount()),account,aca));
+        }
+        transaction = accountTransactionRepository.save(transaction);
         return ViewAccountTransactionsDTO.builder()
                 .acaID(aca.getAcaID())
                 .acaName(aca.getAcaName())

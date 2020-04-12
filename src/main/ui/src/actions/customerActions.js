@@ -7,7 +7,7 @@ export function saveCustomer(customer) {
     return customerApi.saveCustomer(customer).then(savedCustomer => {
         // Hey dispatcher, go tell all the stores that a ACA was just created.
         dispatcher.dispatch({
-            actionType: actionTypes.CREATE_CUSTOMER,
+            actionType: customer.customerID? actionTypes.UPDATE_CUSTOMER : actionTypes.CREATE_CUSTOMER,
             customer: savedCustomer
         });
     });

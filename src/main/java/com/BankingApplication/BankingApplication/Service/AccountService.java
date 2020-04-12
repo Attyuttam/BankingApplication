@@ -39,9 +39,21 @@ public class AccountService {
     }
 
     public ViewAccountDTO save(saveAccountDTO accountDTO) {
-        Customer customer = customerService.findByCustomerID(accountDTO.getCustomer());
+
+        Customer customer = customerService.findByCustomerID(accountDTO.getCustomerID());
         AccountType accountType = accountTypeService.findByAccountType(accountDTO.getAccountType());
-        Account account = accountRepository.save(new Account(parseDouble(accountDTO.getAccountBalance()),accountType,parseDouble(accountDTO.getInterestRate()),new Timestamp(new Date().getTime()),customer));
+        Account account = null;
+        if(accountDTO.getAccountID()!=null){
+            account = accountRepository.findAllByAccountID(accountDTO.getAccountID());
+            account.setAccountBalance(Double.valueOf(accountDTO.getAccountBalance()));
+            account.setAccountTypeID(accountType);
+            account.setInterestRate(Double.valueOf(accountDTO.getInterestRate()));
+            account.setCustomer(customer);
+        }
+        else{
+            account = new Account(parseDouble(accountDTO.getAccountBalance()),accountType,parseDouble(accountDTO.getInterestRate()),new Timestamp(new Date().getTime()),customer);
+        }
+        account = accountRepository.save(account);
         return ViewAccountDTO.builder()
                 .accountBalance(account.getAccountBalance())
                 .accountType(account.getAccountTypeID().getAccountType())
@@ -50,6 +62,7 @@ public class AccountService {
                 .interestRate(account.getInterestRate())
                 .accountID(account.getAccountID())
                 .customerName(account.getCustomer().getCustomerName())
+                .customerID(account.getCustomer().getCustomerID())
                 .build();
     }
 
@@ -66,6 +79,7 @@ public class AccountService {
                     .accountTypeID(account.getAccountTypeID().getAccountTypeID())
                     .accountType(account.getAccountTypeID().getAccountType())
                     .customerName(account.getCustomer().getCustomerName())
+                    .customerID(account.getCustomer().getCustomerID())
                     .build());
         }
         return viewAccountDTOList;

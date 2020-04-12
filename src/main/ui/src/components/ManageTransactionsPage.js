@@ -3,19 +3,23 @@ import {toast} from "react-toastify";
 import transactionStore from  "../store/transactionStore";
 import * as transactionActions from "../actions/transactionActions";
 import TransactionForm from "./TransactionForm";
+import {loadTransactions} from "../actions/transactionActions";
 
 const ManageTransactionsPage = props => {
-    const [transactions,setTransactions] = useState({});
+    const [transactions,setTransactions] = useState(transactionStore.getTransactions());
     const [errors,setErrors] = useState({});
     const [transaction, setTransaction] =useState({
         transactionAmount: "",
-        account: "",
-        aca: ""
+        accountID: "",
+        acaID: ""
     });
     useEffect(() => {
         transactionStore.addChangeListener(onChange);
+        const slug = props.match.params.slug;
+        if(transactions.length===0){loadTransactions();}
+        else if(slug) setTransaction(transactionStore.getTransactionBySlug(slug));
         return () => {transactionStore.removeChangeListener(onChange);}
-    }, [transactions.length]);
+    }, [transactions.length,props.match.params.slug]);
 
     function onChange() {
         setTransactions(transactionStore.getTransactions());
@@ -29,8 +33,8 @@ const ManageTransactionsPage = props => {
     function formIsValid(){
         const _errors = {};
         if (!transaction.transactionAmount) _errors.transactionAmount = "Transaction amount is required";
-        if (!transaction.account) _errors.account = "Account is required";
-        if (!transaction.aca) _errors.aca = "ACA is required";
+        if (!transaction.accountID) _errors.accountID = "Account is required";
+        if (!transaction.acaID) _errors.acaID = "ACA is required";
 
         setErrors(_errors);
         // Form is valid if the errors object has no properties

@@ -18,6 +18,9 @@ class CustomerStore extends EventEmitter{
     getCustomers(){
         return _customers;
     }
+    getCustomerBySlug(slug){
+        return _customers.find(customer => customer.customerID === slug);
+    }
 }
 const store = new CustomerStore();
 Dispatcher.register(action => {
@@ -27,6 +30,10 @@ Dispatcher.register(action => {
    } else if(action.actionType === actionTypes.CREATE_CUSTOMER){
        _customers.push(action.customer);
        store.emitChange();
+   } else if(action.actionType === actionTypes.UPDATE_CUSTOMER){
+       _customers = _customers.map(customer =>
+            customer.customerID === action.customer.customerID ? action.customer : customer
+       );
    }
 });
 export default store;

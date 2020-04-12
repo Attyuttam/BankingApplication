@@ -17,6 +17,7 @@ function AccountForm(props) {
     const [accountTypes, setAccountTypes] =  useState(accountTypeStore.getAccountTypes());
     const [customers, setCustomers] = useState(customerStore.getCustomers());
 
+    //console.log("A/C FORM "+JSON.stringify(props.account));
     useEffect(() => {
         accountTypeStore.addChangeListener(onChange);
         customerStore.addChangeListener(onChange);
@@ -75,10 +76,10 @@ function AccountForm(props) {
                 <label htmlFor="Customer">Customer</label>
                 <div className="field">
                     <select
-                        id="customer"
-                        name="customer"
+                        id="customerID"
+                        name="customerID"
                         onChange={props.onChange}
-                        value={props.account.customer || ""}
+                        value={props.account.customerID || ""}
                         className="form-control"
                     >
                         <option value="" />
@@ -89,8 +90,8 @@ function AccountForm(props) {
                         })}
                     </select>
                 </div>
-                {props.errors.customer && (
-                    <div className="alert alert-danger">{props.errors.customer}</div>
+                {props.errors.customerID && (
+                    <div className="alert alert-danger">{props.errors.customerID}</div>
                 )}
             </div>
 

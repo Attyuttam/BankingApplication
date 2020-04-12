@@ -1,9 +1,9 @@
 import {handleError, handleResponse} from "./apiUtils";
 
 export function saveAccount(account) {
-    console.log("ACCOUNT TO BE SAVED: "+JSON.stringify({
+   /* console.log("ACCOUNT TO BE SAVED: "+JSON.stringify({
         ...account
-    }));
+    }));*/
     return fetch("http://localhost:8080/addAccount", {
         method: "POST", // POST for create, PUT to update when id already exists.
         headers: { "content-type": "application/json" },

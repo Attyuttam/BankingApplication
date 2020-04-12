@@ -16,4 +16,6 @@ public interface AccountTransactionRepository extends CrudRepository<AccountTran
     List<AccountTransaction> findBytransactionTimeStampBetween(Date startDate, Date endDate);
 
     List<AccountTransaction> findAllByAccount(Account account);
+
+    AccountTransaction findAllByTransactionID(String transactionID);
 }

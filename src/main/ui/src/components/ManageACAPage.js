@@ -3,6 +3,7 @@ import * as acaActions from "../actions/acaActions";
 import acaStore from "../store/acaStore";
 import {toast} from "react-toastify";
 import ACAForm from "./ACAForm";
+import {loadAcas} from "../actions/acaActions";
 
 //TODO:
 // 1. need to add validation on form so that the date is in the format DD-MM-YYYY (DONE)
@@ -10,7 +11,7 @@ import ACAForm from "./ACAForm";
 
 const ManageACAPage = props => {
     const [errors, setErrors] = useState({});
-    const [acas,setAcas] = useState({});
+    const [acas,setAcas] = useState(acaStore.getAcas());
     const [aca, setAca] = useState({
         acaName:"",
         acaBirthDate:"",
@@ -20,8 +21,11 @@ const ManageACAPage = props => {
     });
     useEffect(() => {
         acaStore.addChangeListener(onChange);
+        const slug = props.match.params.slug;
+        if(acas.length === 0)loadAcas();
+        else if(slug)setAca(acaStore.getCourseByACA(slug));
         return () => acaStore.removeChangeListener(onChange);
-    }, [acas.length]);
+    }, [acas.length, props.match.params.slug]);
     function onChange() {
         setAcas(acaStore.getAcas());
     }

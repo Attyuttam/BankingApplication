@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 
 function TransactionList(props) {
     return (
-        <table className="table">
+        <table className="table" id="transactionTable">
             <thead>
             <tr>
                 <th>&nbsp;</th>
@@ -24,7 +24,7 @@ function TransactionList(props) {
                 return (
                     <tr key={transaction.transactionID}>
                         <td>&nbsp;</td>
-                        <td>{transaction.transactionID}</td>
+                        <td><Link to={"/manageTransaction/"+transaction.transactionID}>{transaction.transactionID}</Link></td>
                         <td>{transaction.transactionAmount}</td>
                         <td>{transaction.transactionTimeStamp}</td>
                         <td>{transaction.acaID}</td>

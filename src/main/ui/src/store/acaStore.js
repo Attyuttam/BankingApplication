@@ -18,6 +18,10 @@ class ACAStore extends EventEmitter{
     getAcas(){
         return _acas;
     }
+
+    getCourseByACA(slug) {
+        return _acas.find(aca => aca.acaID === slug);
+    }
 }
 const store = new ACAStore();
 Dispatcher.register(action => {
@@ -27,6 +31,12 @@ Dispatcher.register(action => {
     }
     else if(action.actionType === actionTypes.CREATE_ACA){
         _acas.push(action.aca);
+        store.emitChange();
+    }
+    else if(action.actionType === actionTypes.UPDATE_ACA){
+        _acas = _acas.map(aca =>
+            aca.acaID === action.aca.acaID ? action.aca : aca
+        );
         store.emitChange();
     }
 });

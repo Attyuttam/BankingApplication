@@ -4,9 +4,10 @@ import actionTypes from "./actionTypes";
 
 
 export function saveAccount(account){
+//    console.log("TO SAVE A/C "+JSON.stringify(account));
     return accountApi.saveAccount(account).then(savedAccount => {
         dispatcher.dispatch({
-            actionType: actionTypes.CREATE_ACCOUNT,
+            actionType: account.accountID? actionTypes.UPDATE_ACCOUNT : actionTypes.CREATE_ACCOUNT,
             account: savedAccount
         });
     });

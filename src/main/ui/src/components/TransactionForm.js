@@ -10,6 +10,7 @@ function TransactionForm(props) {
     const [accounts, setAccounts] =  useState(accountStore.getAccounts());
     const [acas, setAcas] = useState(acaStore.getAcas());
 
+    //console.log("TR FORM: "+JSON.stringify(props.transaction));
     useEffect(() => {
         accountStore.addChangeListener(onChange);
         acaStore.addChangeListener(onChange);
@@ -37,10 +38,10 @@ function TransactionForm(props) {
                 <label htmlFor="account">Account</label>
                 <div className="field">
                     <select
-                        id="account"
-                        name="account"
+                        id="accountID"
+                        name="accountID"
                         onChange={props.onChange}
-                        value={props.transaction.account || ""}
+                        value={props.transaction.accountID || ""}
                         className="form-control"
                     >
                         <option value="" />
@@ -51,8 +52,8 @@ function TransactionForm(props) {
                         })}
                     </select>
                 </div>
-                {props.errors.account && (
-                    <div className="alert alert-danger">{props.errors.account}</div>
+                {props.errors.accountID && (
+                    <div className="alert alert-danger">{props.errors.accountID}</div>
                 )}
             </div>
 
@@ -60,10 +61,10 @@ function TransactionForm(props) {
                 <label htmlFor="aca">ACA</label>
                 <div className="field">
                     <select
-                        id="aca"
-                        name="aca"
+                        id="acaID"
+                        name="acaID"
                         onChange={props.onChange}
-                        value={props.transaction.aca || ""}
+                        value={props.transaction.acaID || ""}
                         className="form-control"
                     >
                         <option value="" />
@@ -74,8 +75,8 @@ function TransactionForm(props) {
                         })}
                     </select>
                 </div>
-                {props.errors.aca && (
-                    <div className="alert alert-danger">{props.errors.aca}</div>
+                {props.errors.acaID && (
+                    <div className="alert alert-danger">{props.errors.acaID}</div>
                 )}
             </div>
 

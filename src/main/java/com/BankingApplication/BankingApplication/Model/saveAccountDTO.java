@@ -10,8 +10,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class saveAccountDTO {
+    private String accountID;
     private String accountBalance;
     private String accountType;
     private String interestRate;
-    private String customer;
+    private String customerID;
 }

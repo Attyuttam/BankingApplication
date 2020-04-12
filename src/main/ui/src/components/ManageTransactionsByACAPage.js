@@ -4,6 +4,7 @@ import transactionStore from "../store/transactionStore";
 import {toast} from "react-toastify";
 import TransactionsByACAForm from "./TransactionsByACAForm";
 import TransactionList from "./TransactionList";
+import ReactHTMLTableToExcel from "react-html-table-to-excel";
 
 //TODO:
 // 1. need to add validation on form so that the date is in the format DD-MM-YYYY
@@ -54,6 +55,15 @@ const ManageTransactionsByACAPage = props => {
                 errors = {errors}
                 onChange={handleChange}
                 onSubmit={handleSubmit}/>
+                <br/>
+            <ReactHTMLTableToExcel
+                id="transaction-table-xls-button"
+                className="btn btn-primary"
+                table="transactionTable"
+                filename="TransactionByACA_Table"
+                sheet="tablexls"
+                buttonText="Download as XLS"/>
+            <p style={{color: "red"}}>Please click on the Transaction ID to edit that Transaction</p>
             <TransactionList transactions={transactions} />
         </>
     );
