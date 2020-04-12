@@ -19,6 +19,10 @@ import ManageTransactionsByCustomerPage from "./ManageTransactionsByCustomerPage
 import ManageTransactionsByACAPage from "./ManageTransactionsByACAPage";
 import ManageTransactionsByAccountPage from "./ManageTransactionsByAccountPage";
 import ManageTransactionsPage from "./ManageTransactionsPage";
+import AuthenticatedRoute from "./AuthenticatedRoute";
+import LoginComponent from "./LoginComponent";
+import LogoutComponent from "./LogoutComponent";
+import AuthenticationService from "../services/AuthenticationService";
 
 function App() {
     return (
@@ -26,26 +30,28 @@ function App() {
             <ToastContainer autoClose={3000} hideProgressBar />
             <Header />
             <Switch>
-                <Route path="/" exact component={HomePage} />
-                <Route path="/about" component={AboutPage} />
-                <Route path="/detailedAccounts" component={DetailedAccountsPage} />
-                <Route path="/acas" component={ACAPage}/>
-                <Route path="/customers" component={CustomerPage}/>
-                <Route path="/accounts" component={AccountPage}/>
-                <Route path="/transactions" component={TransactionPage}/>
-                <Route path="/manageTransaction/:slug" component={ManageTransactionsPage}/>
-                <Route path="/manageTransaction" component={ManageTransactionsPage}/>
-                <Route path="/manageACA/:slug" component={ManageACAPage} />
-                <Route path="/manageACA" component={ManageACAPage}/>
-                <Route path="/manageAccount/:slug" component={ManageAccountsPage}/>
-                <Route path="/manageAccount" component={ManageAccountsPage}/>
-                <Route path="/manageCustomer/:slug" component={ManageCustomerPage}/>
-                <Route path="/manageCustomer" component={ManageCustomerPage}/>
-                <Route path="/manageTransactionsInRange" component={ManageTransactionsInRangePage}/>
-                <Route path="/manageTransactionsByCustomer" component={ManageTransactionsByCustomerPage}/>
-                <Route path="/manageTransactionsByACA" component={ManageTransactionsByACAPage}/>
-                <Route path="/manageTransactionsByAccount" component={ManageTransactionsByAccountPage}/>
-                <Redirect from="/about-page" to="about" />
+                <Route path="/login" exact component={LoginComponent} />
+                <AuthenticatedRoute path="/" exact component={HomePage} />
+                <AuthenticatedRoute path="/home" exact component={HomePage} />
+                <AuthenticatedRoute path="/about" component={AboutPage} />
+                <AuthenticatedRoute path="/detailedAccounts" component={DetailedAccountsPage} />
+                <AuthenticatedRoute path="/acas" component={ACAPage}/>
+                <AuthenticatedRoute path="/customers" component={CustomerPage}/>
+                <AuthenticatedRoute path="/accounts" component={AccountPage}/>
+                <AuthenticatedRoute path="/transactions" component={TransactionPage}/>
+                <AuthenticatedRoute path="/manageTransaction/:slug" component={ManageTransactionsPage}/>
+                <AuthenticatedRoute path="/manageTransaction" component={ManageTransactionsPage}/>
+                <AuthenticatedRoute path="/manageACA/:slug" component={ManageACAPage} />
+                <AuthenticatedRoute path="/manageACA" component={ManageACAPage}/>
+                <AuthenticatedRoute path="/manageAccount/:slug" component={ManageAccountsPage}/>
+                <AuthenticatedRoute path="/manageAccount" component={ManageAccountsPage}/>
+                <AuthenticatedRoute path="/manageCustomer/:slug" component={ManageCustomerPage}/>
+                <AuthenticatedRoute path="/manageCustomer" component={ManageCustomerPage}/>
+                <AuthenticatedRoute path="/manageTransactionsInRange" component={ManageTransactionsInRangePage}/>
+                <AuthenticatedRoute path="/manageTransactionsByCustomer" component={ManageTransactionsByCustomerPage}/>
+                <AuthenticatedRoute path="/manageTransactionsByACA" component={ManageTransactionsByACAPage}/>
+                <AuthenticatedRoute path="/manageTransactionsByAccount" component={ManageTransactionsByAccountPage}/>
+                <AuthenticatedRoute path="/logout" component={LogoutComponent}/>
                 <Route component={NotFoundPage} />
             </Switch>
         </div>
