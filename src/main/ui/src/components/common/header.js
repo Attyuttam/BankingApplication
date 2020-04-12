@@ -1,28 +1,24 @@
 import React, {useEffect, useState} from "react";
 import {NavLink} from "react-router-dom";
-import loginStore from "../../store/loginStore";
-import * as loginActions from "../../actions/loginActions";
 import AuthenticationService from "../../services/AuthenticationService";
+import loginStore from "../../store/loginStore";
 
-function Header(props) {
-    const [userLoggedIn, setUserLoggedIn] = useState(loginStore.getUserLogged());
+
+function Header() {
+
+    const [loggedIn, setLoggedIn] = useState(loginStore.getUserLogged());
+
+    const activeStyle = {color: "orange"};
+    //const isUserLoggedIn = AuthenticationService.isUserLoggedIn();
+    console.log("LOGGED IN STATUS: "+loggedIn);
 
     useEffect(() => {
         loginStore.addChangeListener(onChange);
-        return () => {
-            loginStore.removeChangeListener(onChange);
-        }
-    }, []);
-    function onChange(){
-        setUserLoggedIn(loginStore.getUserLogged());
-    }
-    const activeStyle = {color: "orange"};
-    //const isUserLoggedIn = AuthenticationService.isUserLoggedIn();
-    console.log("LOGGED IN STATUS: "+userLoggedIn);
+        return () => loginStore.removeChangeListener(onChange);
+    }, );
 
-    function logout() {
-        AuthenticationService.logout();
-        loginActions.login_logout();
+    function onChange() {
+        setLoggedIn(loginStore.getUserLogged());
     }
 
     return (
@@ -51,11 +47,11 @@ function Header(props) {
                 <li className="nav-item">
                     <NavLink className="nav-link" activeStyle={activeStyle} to="/about">About</NavLink>
                 </li>
-                <li className="nav-item">
-                    {!userLoggedIn && <NavLink className="nav-link" to="/login">Login</NavLink>}
-                    {userLoggedIn &&
-                    <NavLink className="nav-link" to="/logout" onClick={logout()}>Logout</NavLink>}
-                </li>
+               {<li className="nav-item">
+                    {!loggedIn && <NavLink className="nav-link" to="/login">Login</NavLink>}
+                    {loggedIn &&
+                    <NavLink className="nav-link" to="/logout" onClick={AuthenticationService.logout}>Logout</NavLink>}
+                </li>}
             </ul>
         </nav>
     );

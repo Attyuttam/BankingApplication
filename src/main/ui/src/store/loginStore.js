@@ -1,9 +1,10 @@
 import {EventEmitter} from 'events';
 import Dispatcher from "../appDispatcher";
 import actionTypes from "../actions/actionTypes";
+import AuthenticationService from "../services/AuthenticationService";
 
 const CHANGE_EVENT = "change";
-let userLogged = false;
+let userLogged = AuthenticationService.isUserLoggedIn();
 
 class LoginStore extends EventEmitter{
     addChangeListener(callback){

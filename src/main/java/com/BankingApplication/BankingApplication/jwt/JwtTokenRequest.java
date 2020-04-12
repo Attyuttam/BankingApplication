@@ -1,4 +1,4 @@
-package com.in28minutes.fullstack.springboot.jwt.basic.authentication.springbootjwtauthloginlogout.jwt;
+package com.BankingApplication.BankingApplication.jwt;
 
 import java.io.Serializable;
 

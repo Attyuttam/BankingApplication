@@ -30,8 +30,8 @@ function App() {
             <ToastContainer autoClose={3000} hideProgressBar />
             <Header />
             <Switch>
-                <Route path="/" exact component={LoginComponent} />
                 <Route path="/login" exact component={LoginComponent} />
+                <AuthenticatedRoute path="/" exact component={HomePage} />
                 <AuthenticatedRoute path="/home" exact component={HomePage} />
                 <AuthenticatedRoute path="/about" component={AboutPage} />
                 <AuthenticatedRoute path="/detailedAccounts" component={DetailedAccountsPage} />

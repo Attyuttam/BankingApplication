@@ -14,7 +14,7 @@ export function saveCustomer(customer) {
 }
 
 export function getCustomers(){
-    console.log("CUSTOMER: "+sessionStorage.getItem("token"));
+    //console.log("CUSTOMER: "+sessionStorage.getItem("token"));
     return fetch("http://localhost:8080/customers",{
         method: "GET",
         headers: {'authorization': 'Bearer ' + sessionStorage.getItem("token")}

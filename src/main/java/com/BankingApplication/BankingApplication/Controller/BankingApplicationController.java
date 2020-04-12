@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
+@CrossOrigin("http://localhost:3000")
 @RestController
 @Slf4j
 public class BankingApplicationController {

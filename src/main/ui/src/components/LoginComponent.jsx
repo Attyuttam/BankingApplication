@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import AuthenticationService from '../services/AuthenticationService';
 import HomePage from "./HomePage";
-import * as loginActions from "../actions/loginActions";
-
+import * as loginAction from '../actions/loginActions';
 class LoginComponent extends Component {
 
     constructor(props) {
@@ -33,8 +32,8 @@ class LoginComponent extends Component {
             .executeJwtAuthenticationService(this.state.username, this.state.password)
             .then((response) => {
                 AuthenticationService.registerSuccessfulLoginForJwt(this.state.username, response.data.token)
-                loginActions.login_logout();
-                setTimeout(() => console.log("Hello, World!"), 3000);
+                //console.log("SESSION TOKEN: "+sessionStorage.getItem("token"));
+                loginAction.login_logout();
                 this.props.history.push(`/home`)
             }).catch(() => {
                 this.setState({ showSuccessMessage: false })

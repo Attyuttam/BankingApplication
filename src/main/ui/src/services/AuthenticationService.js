@@ -1,4 +1,5 @@
 import axios from 'axios'
+import * as loginAction from '../actions/loginActions';
 
 const API_URL = 'http://localhost:8080'
 
@@ -44,6 +45,7 @@ class AuthenticationService {
     logout() {
         sessionStorage.removeItem(USER_NAME_SESSION_ATTRIBUTE_NAME);
         sessionStorage.removeItem("token");
+        loginAction.login_logout();
     }
 
     isUserLoggedIn() {
